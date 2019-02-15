@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="assets/stylesheets/level_1.css">
-    <script src="assets/scripts/L_1_textareaWhiteSpace.js"></script>
 </head>
 <body>
 
@@ -16,11 +15,14 @@
     </div>
 
     <div id="user-interface">
-        <textarea id="code">#Write you code here</textarea>
+        <div id="line_counter">
 
-        <button id="run"> Run </button>
+        </div>
+        <textarea id="code">#Write you code here</textarea>
+        <button id="run" onclick="Run()"> Run </button>
     </div>
 </div>
 
 </body>
+<script src="assets/scripts/CompilePlayerCode.js"></script>
 </html>
