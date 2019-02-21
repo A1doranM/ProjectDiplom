@@ -77,9 +77,10 @@ table {
 }
 
 #canvas-wrapper{
+    margin-left: 20px;
     display: inline-block;
     position: relative;
-    width: 50%;
+    width: 950px;
     height: 750px;
     white-space: nowrap;
 }
