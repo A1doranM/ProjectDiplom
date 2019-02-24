@@ -16,19 +16,44 @@ app.use(express.static(__dirname + '/node_modules'));
 
 serv.listen(3001);
 
-let Player = function(id){
+let Entity = function () {
     let self = {
         x: 10,
-        y: 30,
-        id: id,
-        number: number = "" + Math.floor(10 * Math.random()),
-        pressingLeft: false,
-        pressingRight: false,
-        pressingUP: false,
-        pressingDowm: false,
-        maxSpd: 2
+        y: 10,
+        spdX: 0,
+        spdY: 0,
+        id: '',
     };
+
+    self.update = function(){
+        self.updatePosition();
+    };
+
     self.updatePosition = function(){
+      self.x += self.spdX;
+      self.y += self.spdY;
+    };
+
+    return self;
+};
+
+let Player = function(id){
+    let self = Entity();
+    self.id = id;
+    self.number = "" + Math.floor(10 * Math.random());
+    self.pressingLeft = false;
+    self.pressingRight = false;
+    self.pressingUP = false;
+    self.pressingDowm = false;
+    self.maxSpd = 2;
+
+    let super_update = self.update;
+    self.update = function(){
+        self.updateSpeed();
+        super_update();
+    };
+
+    self.updateSpeed = function(){
       if(self.pressingLeft)
           self.x -= self.maxSpd;
       if(self.pressingRight)
@@ -39,45 +64,41 @@ let Player = function(id){
           self.y += self.maxSpd;
     };
 
+    Player.list[id] = self;
     return self;
 };
+Player.list = {};
 
-io.sockets.on('connection', function (socket) {
-    socket.id = Math.random();
-    SOCKET_LIST[socket.id] = socket;
-
+Player.onConnect = function(socket){
     let player = new Player(socket.id);
-    PLAYER_LIST[socket.id] = player;
-
     console.log('player connected');
-
-    socket.on('disconnect', function () {
-        delete SOCKET_LIST[socket.id];
-        delete PLAYER_LIST[socket.id];
-    });
-
     socket.on('move', function(data){
-       switch (data.inputID){
-           case 'left':
-               player.pressingLeft = data.state;
-               break;
-           case 'right':
-               player.pressingRight = data.state;
-               break;
-           case 'UP':
-               player.pressingUP = data.state;
-               break;
-           case 'Down':
-               player.pressingDown = data.state;
-               break;
-       }
+        switch (data.inputID){
+            case 'left':
+                player.pressingLeft = data.state;
+                break;
+            case 'right':
+                player.pressingRight = data.state;
+                break;
+            case 'UP':
+                player.pressingUP = data.state;
+                break;
+            case 'Down':
+                player.pressingDown = data.state;
+                break;
+        }
     });
-});
 
-setInterval(function () {
+};
+
+Player.onDisconnect = function(socket){
+    delete Player.list[socket.id];
+};
+
+Player.update = function(){
     let currentPlayers = [];
-    for(let i in PLAYER_LIST){
-        let player = PLAYER_LIST[i];
+    for(let i in Player.list){
+        let player = Player.list[i];
         player.updatePosition();
         currentPlayers.push({
             x:player.x,
@@ -85,6 +106,23 @@ setInterval(function () {
             number: player.number
         })
     }
+    return currentPlayers;
+};
+
+io.sockets.on('connection', function (socket) {
+    socket.id = Math.random();
+    SOCKET_LIST[socket.id] = socket;
+
+    Player.onConnect(socket);
+
+    socket.on('disconnect', function () {
+        delete SOCKET_LIST[socket.id];
+        Player.onDisconnect(socket);
+    });
+});
+
+setInterval(function () {
+    let package = Player.update();
 
     for(let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
