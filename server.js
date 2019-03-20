@@ -42,12 +42,24 @@ let Player = function(id){
     self.pressingLeft = false;
     self.pressingUP = false;
     self.pressingDown = false;
+    self.pressingAttack = false;
+    self.bulletAngle = 0;
     self.maxSpd = 10;
 
     let super_update = self.update;
     self.update = function(){
         self.updateSpd();
         super_update();
+
+        if(Math.random() < 0.1){
+            self.shootBullet(Math.random()*360);
+        }
+    };
+
+    self.shootBullet = function(angle){
+        let b = Bullet(angle);
+        b.x = self.x;
+        b.y = self.y;
     };
 
     self.updateSpd = function(){
@@ -80,7 +92,7 @@ Player.list = {};
 
 Player.onConnect = function(socket) {
     let player = Player(socket.id);
-    socket.on('move', function (data) {
+    socket.on('action', function (data) {
         switch (data.inputID) {
             case 'left':
                 player.pressingLeft = data.state;
