@@ -8,7 +8,7 @@ socket.on('newPositions',function(data){
     for(let i = 0 ; i < data.player.length; i++) {
         ctx.fillText(data.player[i].number, data.player[i].x, data.player[i].y);
     }
-    for(var i = 0 ; i < data.bullet.length; i++) {
+    for(let i = 0 ; i < data.bullet.length; i++) {
         ctx.fillRect(data.bullet[i].x - 5, data.bullet[i].y - 5, 10, 10);
     }
 });
@@ -33,7 +33,7 @@ let Player = function () {
     this.moveDown = function(){
         socket.emit('action', {inputID:'down', state: true});
     };
-    this.attack = function () {
+    this.shoot = function () {
         socket.emit('action', {inputID:'attack', state: true});
     }
 };
