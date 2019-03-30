@@ -3,7 +3,7 @@ let app = express();
 let serv = require('http').Server(app);
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/level_1.html');
+    res.sendFile(__dirname + '/client/login.html');
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -188,10 +188,40 @@ Bullet.update = function(){
     return pack;
 };
 
+let isUPasswordValid     = function (data) {
+    return '';
+};
+
+let isUserNameTaken = function (data) {
+    return '';
+};
+
+let addUser = function (data) {
+    return '';
+};
+
 let io = require('socket.io')(serv, {});
 io.sockets.on('connection', function(socket){
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
+
+    socket.on('signIn',function(data){
+        if(data.email === 'max' && data.password === 'asd') {
+            Player.onConnect(socket);
+            socket.emit('SignInResponse', {success: true});
+        } else {
+            socket.emit('SignInResponse', {success: false});
+        }
+    });
+
+    socket.on('signUp',function(data){
+        if(data.email === 'max' && data.password === 'asd') {
+            Player.onConnect(socket);
+            socket.emit('SignIpResponse', {success: true});
+        } else {
+            socket.emit('SignIpResponse', {success: false});
+        }
+    });
 
     Player.onConnect(socket);
 
