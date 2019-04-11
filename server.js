@@ -3,7 +3,7 @@ let app = express();
 let serv = require('http').Server(app);
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/login.html');
+    res.sendFile(__dirname + '/client/registration.html');
 });
 
 app.use(express.static(__dirname + '/public'));
