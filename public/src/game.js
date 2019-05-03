@@ -18,8 +18,6 @@ function Run () {
     eval(script);
 }
 
-let field = document.getElementById('code');
-
 let Player = function () {
     this.moveLeft = function(){
         socket.emit('action', {inputID:'left', state: true});

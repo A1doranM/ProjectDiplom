@@ -8,33 +8,38 @@
 </head>
 <body>
 
-<form id="authForm">
+<div id="authForm">
     <div class="form_row">
-        <input id="email" type="text" placeholder="email">
+        <input id="signin_email" type="text" placeholder="email">
     </div>
 
     <div class="form_row">
-        <input id="password" type="password" placeholder="password">
+        <input id="signin_password" type="password" placeholder="password">
     </div>
 
     <button  class="form_btn" id="btn_signup"></button>
 
     <button  class="form_btn" id="btn_login"></button>
-</form>
+</div>
 
-<!--<form id="regForm">-->
-    <!--<div class="form_row">-->
-        <!--<input id="email" type="text" placeholder="email">-->
-    <!--</div>-->
+<div id="regForm">
+    <div class="form_row">
+        <input id="reg_email" type="text" placeholder="email">
+    </div>
 
-    <!--<div class="form_row">-->
-        <!--<input id="password" type="password" placeholder="password">-->
-    <!--</div>-->
+    <div class="form_row">
+        <input id="reg_login" type="password" placeholder="login">
+    </div>
 
-    <!--<button  class="form_btn" id="btn_signup"></button>-->
+    <div class="form_row">
+        <input id="reg_password" type="password" placeholder="password">
+    </div>
 
-    <!--<button  class="form_btn" id="btn_login"></button>-->
-<!--</form>-->
+    <button  class="form_btn" id="reg_btn_signup"></button>
+
+    <button  class="form_btn" id="reg_btn_signin"></button>
+</div>
+
 </body>
-<script src="/src/authSystem.js"></script>
+<script src="/src/auth.js"></script>
 </html>

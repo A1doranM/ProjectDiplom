@@ -1,10 +1,31 @@
+let mysql = require('mysql');
+let DBConnection = mysql.createConnection({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '1q2w3e3e2w1q4r',
+    database: 'diplom'
+});
+
+
 let express = require('express');
 let app = express();
 let serv = require('http').Server(app);
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/registration.html');
+app.get('/login', function (req, res) {
+    res.sendFile(__dirname + '/client/login.html');
 });
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/client/index.html');
+});
+
+app.get('/level_1', function (req, res) {
+    res.sendFile(__dirname + '/client/level_1.html');
+});
+
+
+// executeQ();
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
@@ -96,6 +117,7 @@ let Player = function(id){
 };
 
 Player.list = {};
+
 
 Player.onConnect = function(socket) {
     let player = Player(socket.id);
@@ -206,21 +228,20 @@ io.sockets.on('connection', function(socket){
     SOCKET_LIST[socket.id] = socket;
 
     socket.on('signIn',function(data){
-        if(data.email === 'max' && data.password === 'asd') {
-            Player.onConnect(socket);
-            socket.emit('SignInResponse', {success: true});
-        } else {
-            socket.emit('SignInResponse', {success: false});
-        }
+        DBConnection.query('select users.login from diplom.users where users.password=? and users.email=?', [data.password, data.email], function (err, result) {
+            if(result[0] === undefined) {
+                socket.emit('SignInResponse', {success: false});
+            } else {
+                socket.emit('SignInResponse', {success: true});
+            }
+        });
     });
 
     socket.on('signUp',function(data){
-        if(data.email === 'max' && data.password === 'asd') {
-            Player.onConnect(socket);
-            socket.emit('SignIpResponse', {success: true});
-        } else {
-            socket.emit('SignIpResponse', {success: false});
-        }
+        DBConnection.query('insert into diplom.users (login, email, password) values (?, ?, ?)', [data.login, data.email, data.password], function (err, result) {
+            if(err) throw err;
+            socket.emit('SignInResponse', {success: true});
+        });
     });
 
     Player.onConnect(socket);
@@ -241,5 +262,15 @@ setInterval(function(){
     for(let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
         socket.emit('newPositions',pack);
+
     }
 }, 1000/25);
+
+let isValidUser = function(data){
+    DBConnection.query('select users.login from users where users.password = '
+        + data.password + 'and users.login = ' + data.email, function (err, result, fields) {
+        if(result === null){
+            socket.emit('authResp', false);
+        }
+    });
+};

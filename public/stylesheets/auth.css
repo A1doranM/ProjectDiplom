@@ -60,6 +60,9 @@ html {
     background-size: cover;
 }
 
+/*=================================*/
+/*           Authorization         */
+/*=================================*/
 
 #authForm {
     width: 800px;
@@ -71,19 +74,19 @@ html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 22;
 }
 
-#password {
-    position: relative;
+#signin_password {
     margin-top: 2.8%;
 }
 
-#email {
-    position: relative;
+#signin_email {
     margin-top: 30.3%;
 }
 
 .form_row input {
+    position: relative;
     height: 27px;
     width: 79.6%;
     left: 9.3%;
@@ -107,5 +110,42 @@ html {
 }
 
 #btn_login {
+    margin-left: 7%;
+}
+
+/*=================================*/
+/*           Registration          */
+/*=================================*/
+
+#regForm {
+    width: 800px;
+    height: 500px;
+    background-image: url("../assets/reg_form.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 21;
+}
+
+#reg_email{
+    margin-top: 23%;
+}
+
+#reg_login{
+    margin-top: 3.3%;
+}
+
+#reg_password{
+    margin-top: 2.5%;
+}
+
+#reg_btn_signup{
+    margin-left: 10%;
+}
+
+#reg_btn_signin{
     margin-left: 7%;
 }
