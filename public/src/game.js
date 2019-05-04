@@ -3,22 +3,90 @@ ctx.font = '30px Arial';
 
 let socket = io();
 
-socket.on('newPositions',function(data){
-    ctx.clearRect(0,0,950,750);
-    for(let i = 0 ; i < data.player.length; i++) {
-        ctx.fillText(data.player[i].number, data.player[i].x, data.player[i].y);
+
+//initial package
+let Player = function (initPack) {
+    let self = {};
+    self.id = initPack.id;
+    self.number = initPack.number;
+    self.x = initPack.x;
+    self.y = initPack.y;
+    Player.list[self.id] = self;
+    return self;
+};
+Player.list = {};
+
+let Bullet = function(initPack){
+    let self = {};
+    self.id = initPack.id;
+    self.x = initPack.x;
+    self.y = initPack.y;
+    Bullet.list[self.id] = self;
+    return self;
+};
+Bullet.list = {};
+
+socket.on('init', function (data) {
+    for(let i = 0; i < data.player.length; i++){
+        new Player(data.player[i]);
     }
-    for(let i = 0 ; i < data.bullet.length; i++) {
-        ctx.fillRect(data.bullet[i].x - 5, data.bullet[i].y - 5, 10, 10);
+    for(let i = 0; i < data.bullet.length; i++){
+        new Bullet(data.bullet[i]);
     }
 });
+
+//update package
+socket.on('update', function (data) {
+    for(let i = 0; i < data.player.length; i++){
+        let pack = data.player[i];
+        let p = Player.list[pack.id];
+        if(p){
+            if((pack.x !== undefined) && (pack.y !== undefined)){
+                p.x = pack.x;
+                p.y = pack.y;
+            }
+        }
+    }
+
+    for(let i = 0; i < data.bullet.length; i++){
+        let pack = data.bullet[i];
+        let b = Bullet.list[pack.id];
+        if(b){
+            if((pack.x !== undefined) && (pack.y !== undefined)){
+                b.x = pack.x;
+                b.y = pack.y;
+            }
+        }
+    }
+});
+
+//remove package
+socket.on('remove', function (data) {
+    for(let i = 0; i < data.player.length; i++){
+        delete Player.list[data.player[i]];
+    }
+    for(let i = 0; i < data.bullet.length; i++){
+        delete Bullet.list[data.bullet[i]];
+    }
+});
+///////////////////////
+
+setInterval(function () {
+   ctx.clearRect(0,0,950,750);
+   for(let i in Player.list){
+       ctx.fillText(Player.list[i].number, Player.list[i].x, Player.list[i].y);
+   }
+   for(let i in Bullet.list){
+       ctx.fillRect(Bullet.list[i].x-5, Bullet.list[i].y-5, 10, 10);
+   }
+}, 40);
 
 function Run () {
     let script = document.getElementById("code").value;
     eval(script);
 }
 
-let Player = function () {
+let Hero = function () {
     this.moveLeft = function(){
         socket.emit('action', {inputID:'left', state: true});
     };

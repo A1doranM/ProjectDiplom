@@ -113,6 +113,12 @@ let Player = function(id){
     };
 
     Player.list[id] = self;
+    initPackage.player.push({
+        id:self.id,
+        x:self.x,
+        y:self.y,
+        number:self.number,
+    });
     return self;
 };
 
@@ -146,6 +152,7 @@ Player.onConnect = function(socket) {
 
 Player.onDisconnect = function(socket){
     delete Player.list[socket.id];
+    removePackage.player.push(socket.id);
 };
 
 Player.update = function(){
@@ -154,9 +161,9 @@ Player.update = function(){
         let player = Player.list[i];
         player.update();
         pack.push({
+            id:player.id,
             x:player.x,
             y:player.y,
-            number:player.number
         });
     }
     return pack;
@@ -186,6 +193,11 @@ let Bullet = function(parent, angle){
     };
 
     Bullet.list[self.id] = self;
+    initPackage.bullet.push({
+        id:self.id,
+        x:self.x,
+        y:self.y,
+    });
     return self;
 };
 
@@ -197,29 +209,18 @@ Bullet.update = function(){
     for(let i in Bullet.list){
         let bullet = Bullet.list[i];
         bullet.update();
-
         if(bullet.toRemove){
             delete Bullet.list[i];
+            removePackage.bullet.push(bullet.id);
         } else {
             pack.push({
+                id:bullet.id,
                 x: bullet.x,
                 y: bullet.y,
             });
         }
     }
     return pack;
-};
-
-let isUPasswordValid     = function (data) {
-    return '';
-};
-
-let isUserNameTaken = function (data) {
-    return '';
-};
-
-let addUser = function (data) {
-    return '';
 };
 
 let io = require('socket.io')(serv, {});
@@ -252,25 +253,22 @@ io.sockets.on('connection', function(socket){
     });
 });
 
-setInterval(function(){
+let initPackage = {player:[], bullet:[]};
+let removePackage = {player:[], bullet:[]};
 
-    let pack = {
+setInterval(function(){
+    let updatePackage = {
         player: Player.update(),
         bullet: Bullet.update(),
     };
 
     for(let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
-        socket.emit('newPositions',pack);
-
+        socket.emit('init', initPackage);
+        socket.emit('update',updatePackage);
+        socket.emit('remove', removePackage);
     }
+    initPackage.player = [];
+    initPackage.bullet = [];
+    removePackage.player = [];
 }, 1000/25);
-
-let isValidUser = function(data){
-    DBConnection.query('select users.login from users where users.password = '
-        + data.password + 'and users.login = ' + data.email, function (err, result, fields) {
-        if(result === null){
-            socket.emit('authResp', false);
-        }
-    });
-};

@@ -22,9 +22,9 @@ btn_signup.addEventListener('click', function () {
 
 socket.on('SignInResponse', function (data) {
     if(data.success){
-        window.location.replace('http://localhost:3002/level_1')
+        window.location.replace('http://localhost:3002/')
     } else {
-        alert("Invalid login or path")
+        alert("Invalid login or password")
     }
 });
 
@@ -50,7 +50,7 @@ reg_btn_signin.addEventListener('click', function () {
 
 socket.on('SignUnResponse', function (data) {
     if(data.success){
-        window.location.replace('http://localhost:3002/level_1')
+        window.location.replace('http://localhost:3002/')
     } else {
         alert("Invalid login or path")
     }
