@@ -5,35 +5,37 @@
     <title>Title</title>
     <link rel="stylesheet" href="/stylesheets/index.css">
     <script src="/src/scrollers.js"></script>
+    <script src="/src/cookieWorker.js"></script>
+    <script src="/src/isAuthorized.js"></script>
 </head>
 <body>
 <header>
     <h1 class="logo">
-        <a href="index.html">Code Wars</a>
+        <a href="selectLevel.html">Code Wars</a>
     </h1>
 </header>
 
 <div id="main_screen">
     <div class = "portals">
-        <div class = "portal level_1">
+        <div class = "portal" id="level_1">
             <div class="level-label">
                 <h2 class = "level-name">Level - 1</h2>
                 <a class="btn-play" href="/level_1">Play</a>
             </div>
         </div>
-        <div class = "portal level_2">
+        <div class = "portal" id="level_2">
             <div class="level-label">
                 <h2 class = "level-name">Level - 2</h2>
                 <a class="btn-play" href="/level_2">Play</a>
             </div>
         </div>
-        <div class = "portal level_3">
+        <div class = "portal" id="level_3">
             <div class="level-label">
                 <h2 class = "level-name">Level - 3</h2>
                 <a class="btn-play" href="/">Play</a>
             </div>
         </div>
-        <div class = "portal level_4">
+        <div class = "portal" id="level_4">
             <div class="level-label">
                 <h2 class = "level-name">Level - 4</h2>
                 <a class="btn-play" href="/">Play</a>

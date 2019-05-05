@@ -72,10 +72,11 @@ table {
 }
 
 .portal{
+    position: relative;
     display:inline-block;
     vertical-align: top;
     width: 480px;
-    height: 520px;
+    height: 350px;
 }
 
 /*=================================*/
@@ -99,11 +100,6 @@ table {
     font-size: 22px;
 }
 
-.portal{
-    background-image: url("");
-
-}
-
 .logo{
     border-top: 4px solid #648880;
     font-size: 40px;
@@ -115,7 +111,7 @@ table {
 }
 
 header{
-    height: 250px;
+    height: 70px;
 }
 
 footer{
@@ -123,9 +119,39 @@ footer{
 }
 
 body{
-    /*background-image: url("../Images/background.png");*/
+    background-image: url("../assets/Portals_background.png");
+    background-position:center top;
+    background-size:cover;
+    background-repeat: no-repeat;
 }
 
+#level_1{
+    margin-top: 11%;
+    background-image: url("../assets/Portal_ice.png");
+    background-position:center top;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+#level_2{
+    background-image: url("../assets/Portal_red.png");
+    background-position:center top;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+#level_3{
+    margin-top: 20%;
+    background-image: url("../assets/Portal_pink.png");
+    background-position:center top;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+#level_4{
+    margin-top: 5%;
+    background-image: url("../assets/Portal_green.png");
+    background-position:center top;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
 /*=================================*/
 /*           Asides                */
 /*=================================*/

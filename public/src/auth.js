@@ -22,6 +22,7 @@ btn_signup.addEventListener('click', function () {
 
 socket.on('SignInResponse', function (data) {
     if(data.success){
+        setCookie('isAuthorized', true, {path : '/'});
         window.location.replace('http://localhost:3002/')
     } else {
         alert("Invalid login or password")

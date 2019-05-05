@@ -17,7 +17,7 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/index.html');
+    res.sendFile(__dirname + '/client/selectLevel.html');
 });
 
 app.get('/level_1', function (req, res) {
