@@ -36,8 +36,8 @@ let SOCKET_LIST = {};
 
 let Entity = function(){
     let self = {
-        x:10,
-        y:30,
+        x:250,
+        y:250,
         spdX:0,
         spdY:0,
         id:"",
@@ -115,7 +115,6 @@ let Player = function(id){
         }
     };
 
-    Player.list[id] = self;
     self.getInitPackage = function(){
         return{
             id:self.id,
@@ -147,12 +146,13 @@ let Player = function(id){
         };
     };
 
+    Player.list[id] = self;
+
     initPackage.player.push(self.getInitPackage());
     return self;
 };
 
 Player.list = {};
-
 
 Player.onConnect = function(socket) {
     let player = Player(socket.id);
@@ -177,10 +177,10 @@ Player.onConnect = function(socket) {
     });
 
     socket.emit('init', {
+        selfId:socket.id,
         player:Player.getAllInitPacks(),
         bullet:Bullet.getAllInitPacks(),
     });
-    console.log('player connected');
 };
 
 Player.getAllInitPacks = function(){
@@ -229,10 +229,12 @@ let Bullet = function(parent, angle){
                 if(p.hp <= 0){
                     let shooter = Player.list[self.parent];
                     if(shooter){
-                        p.hp = p.hpMax;
-                        p.x = Math.random() * 500;
-                        p.y = Math.random() * 500;
+                        shooter.score += 1;
                     }
+                    p.hp = p.hpMax;
+                    p.x = Math.random() * 500;
+                    p.y = Math.random() * 500;
+
                 }
 
                 self.toRemove = true;

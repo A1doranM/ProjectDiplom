@@ -1,8 +1,19 @@
 let ctx = document.getElementById("game").getContext("2d");
 ctx.font = '30px Arial';
 
+//game
+let Img = {};
+Img.player = new Image();
+Img.player.src = '../assets/player.png';
+Img.bullet = new Image();
+Img.bullet.src = '../assets/bullet.png';
+Img.map = new Image();
+Img.map.src = '../assets/map.png';
+
 let socket = io();
 
+let WIDTH = 500;
+let HEIGHT = 500;
 
 //initial package
 let Player = function (initPack) {
@@ -16,11 +27,21 @@ let Player = function (initPack) {
     self.score = initPack.score;
 
     self.draw = function(){
-        let hpWidth = 30 * self.hp / self.hpMax;
-        ctx.fillRect(self.x - hpWidth/2, self.y - 40, hpWidth, 4);
-        ctx.fillText(self.number, self.x, self.y);
+        let x = self.x - Player.list[selfId].x + WIDTH/2;
+        let y = self.y - Player.list[selfId].y + HEIGHT/2;
 
-        ctx.fillText(self.score, self.x, self.y-60);
+        let hpWidth = 30 * self.hp / self.hpMax;
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x - hpWidth/2, y - 40, hpWidth, 4);
+
+        let width = Img.player.width*2;
+        let height = Img.player.height*2;
+
+        ctx.drawImage(Img.player,
+            0, 0, Img.player.width, Img.player.height,
+            x - width/2, y - height/2, width, height);
+
+        //ctx.fillText(self.score, self.x, self.y-60);
     };
 
     Player.list[self.id] = self;
@@ -35,7 +56,15 @@ let Bullet = function(initPack){
     self.y = initPack.y;
 
     self.draw = function(){
-        ctx.fillRect(self.x-5, self.y-5, 10, 10);
+        let width = Img.bullet.width/2;
+        let height = Img.bullet.width/2;
+
+        let x = self.x - Player.list[selfId].x + WIDTH/2;
+        let y = self.y - Player.list[selfId].y + HEIGHT/2;
+
+        ctx.drawImage(Img.bullet,
+            0, 0, Img.bullet.width, Img.bullet.height,
+            x - width/2, y - height/2, width, height);
     };
 
     Bullet.list[self.id] = self;
@@ -43,7 +72,12 @@ let Bullet = function(initPack){
 };
 Bullet.list = {};
 
+let selfId = null;
+
 socket.on('init', function (data) {
+    if(data.selfId){
+        selfId = data.selfId;
+    }
     for(let i = 0; i < data.player.length; i++){
         new Player(data.player[i]);
     }
@@ -73,7 +107,7 @@ socket.on('update', function (data) {
 
     for(let i = 0; i < data.bullet.length; i++){
         let pack = data.bullet[i];
-        let b = Bullet.list[pack.id];
+        let b = Bullet.list[data.bullet[i].id];
         if(b){
             if(b){
                 if(pack.x !== undefined)
@@ -97,14 +131,31 @@ socket.on('remove', function (data) {
 ///////////////////////
 
 setInterval(function () {
-   ctx.clearRect(0,0,950,750);
-   for(let i in Player.list){
-       Player.list[i].draw();
-   }
-   for(let i in Bullet.list){
-       Bullet.list[i].draw();
-   }
+    if(!selfId){
+        return;
+    }
+    ctx.clearRect(0,0,500,500);
+    drawMap();
+    drawScore();
+    for(let i in Player.list){
+        Player.list[i].draw();
+    }
+    for(let i in Bullet.list){
+        Bullet.list[i].draw();
+    }
 }, 40);
+
+let drawMap = function () {
+    let x = WIDTH/2 - Player.list[selfId].x;
+    let y = HEIGHT/2 - Player.list[selfId].y;
+    ctx.drawImage(Img.map, x, y);
+};
+
+let drawScore = function () {
+    ctx.fillStyle = 'white';
+    ctx.fillText(Player.list[selfId].score, 0, 30);
+
+};
 
 function Run () {
     let script = document.getElementById("code").value;
@@ -138,7 +189,8 @@ document.onkeydown = function(event){
         socket.emit('action',{inputID:'left',state:true});
     else if(event.keyCode === 87) // w
         socket.emit('action',{inputID:'UP',state:true});
-
+    else if(event.keyCode === 66)
+        socket.emit('action', {inputID:'attack', state: true});
 };
 document.onkeyup = function(event){
     if(event.keyCode === 68)    //d
@@ -150,14 +202,5 @@ document.onkeyup = function(event){
     else if(event.keyCode === 87) // w
         socket.emit('action',{inputID:'UP',state:false});
     else if(event.keyCode === 66)
-        socket.emit('action', {inputID:'attack', state: true});
+        socket.emit('action', {inputID:'attack', state: false});
 };
-//
-// let p = new Player();
-// p.moveRight();
-//
-// function func() {
-//     socket.emit('action', {inputID:'right',state:false});
-// }
-//
-// setTimeout(func, 1000);
