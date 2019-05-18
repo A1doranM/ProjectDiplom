@@ -24,13 +24,10 @@ app.get('/level_1', function (req, res) {
     res.sendFile(__dirname + '/client/level_1.html');
 });
 
-
-// executeQ();
-
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 
-serv.listen(process.env.PORT);
+serv.listen(process.env.PORT || 2000);
 
 let SOCKET_LIST = {};
 
