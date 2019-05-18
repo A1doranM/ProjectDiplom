@@ -12,15 +12,15 @@ let express = require('express');
 let app = express();
 let serv = require('http').Server(app);
 
-// app.get('/login', function (req, res) {
-//     res.sendFile(__dirname + '/client/login.html');
-// });
-//
-// app.get('/', function (req, res) {
-//     res.sendFile(__dirname + '/client/selectLevel.html');
-// });
+app.get('/login', function (req, res) {
+    res.sendFile(__dirname + '/client/login.html');
+});
 
 app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/client/selectLevel.html');
+});
+
+app.get('/level_1', function (req, res) {
     res.sendFile(__dirname + '/client/level_1.html');
 });
 
