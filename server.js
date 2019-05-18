@@ -30,7 +30,7 @@ app.get('/level_1', function (req, res) {
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 
-serv.listen(process.env.PORT || 3002);
+serv.listen(process.env.PORT);
 
 let SOCKET_LIST = {};
 
