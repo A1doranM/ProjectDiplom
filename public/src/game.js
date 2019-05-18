@@ -7,13 +7,17 @@ Img.player = new Image();
 Img.player.src = '../assets/player.png';
 Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
-Img.map = new Image();
-Img.map.src = '../assets/map.png';
+
+Img.map = {};
+Img.map['field'] = new Image();
+Img.map['field'].src = '../assets/map.png';
+Img.map['forest'] = new Image();
+Img.map['forest'].src = '../assets/map2.png';
 
 let socket = io();
 
-let WIDTH = 500;
-let HEIGHT = 500;
+let WIDTH = 750;
+let HEIGHT = 750;
 
 //initial package
 let Player = function (initPack) {
@@ -25,8 +29,12 @@ let Player = function (initPack) {
     self.hp = initPack.hp;
     self.hpMax = initPack.hpMax;
     self.score = initPack.score;
+    self.map = initPack.map;
 
     self.draw = function(){
+        if(Player.list[selfId].map !== self.map){
+            return;
+        }
         let x = self.x - Player.list[selfId].x + WIDTH/2;
         let y = self.y - Player.list[selfId].y + HEIGHT/2;
 
@@ -54,8 +62,12 @@ let Bullet = function(initPack){
     self.id = initPack.id;
     self.x = initPack.x;
     self.y = initPack.y;
+    self.map = initPack.map;
 
     self.draw = function(){
+        if(Player.list[selfId].map !== self.map){
+            return;
+        }
         let width = Img.bullet.width/2;
         let height = Img.bullet.width/2;
 
@@ -134,7 +146,7 @@ setInterval(function () {
     if(!selfId){
         return;
     }
-    ctx.clearRect(0,0,500,500);
+    ctx.clearRect(0,0,750,750);
     drawMap();
     drawScore();
     for(let i in Player.list){
@@ -146,9 +158,10 @@ setInterval(function () {
 }, 40);
 
 let drawMap = function () {
-    let x = WIDTH/2 - Player.list[selfId].x;
-    let y = HEIGHT/2 - Player.list[selfId].y;
-    ctx.drawImage(Img.map, x, y);
+    let player = Player.list[selfId];
+    let x = WIDTH/2 - player.x;
+    let y = HEIGHT/2 - player.y;
+    ctx.drawImage(Img.map[player.map], x, y);
 };
 
 let drawScore = function () {

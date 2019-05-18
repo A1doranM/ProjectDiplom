@@ -12,33 +12,40 @@ let express = require('express');
 let app = express();
 let serv = require('http').Server(app);
 
-// app.get('/login', function (req, res) {
-//     res.sendFile(__dirname + '/client/login.html');
-// });
-//
-// app.get('/', function (req, res) {
-//     res.sendFile(__dirname + '/client/selectLevel.html');
-// });
+app.get('/login', function (req, res) {
+    res.sendFile(__dirname + '/client/login.html');
+});
 
 app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/client/selectLevel.html');
+});
+
+app.get('/level_1', function (req, res) {
     res.sendFile(__dirname + '/client/level_1.html');
 });
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 
-serv.listen(process.env.PORT || 2000);
+serv.listen(2000);
 
 let SOCKET_LIST = {};
 
-let Entity = function(){
+let Entity = function(param){
     let self = {
         x:250,
         y:250,
         spdX:0,
         spdY:0,
         id:"",
+        map: 'forest',
     };
+    if(param){
+        if(param.x) self.x = param.x;
+        if(param.y) self.x = param.x;
+        if(param.map) self.map = param.map;
+        if(param.id) self.id = param.id;
+    }
 
     self.update = function(){
         self.updatePosition();
@@ -56,9 +63,8 @@ let Entity = function(){
     return self;
 };
 
-let Player = function(id){
-    let self = Entity();
-    self.id = id;
+let Player = function(param){
+    let self = Entity(param);
     self.number = "" + Math.floor(10 * Math.random());
     self.pressingRight = false;
     self.pressingLeft = false;
@@ -85,9 +91,13 @@ let Player = function(id){
     };
 
     self.shootBullet = function(angle){
-        let b = Bullet(self.id, angle);
-        b.x = self.x;
-        b.y = self.y;
+        Bullet({
+            parent:self.id,
+            angle:angle,
+            x:self.x,
+            y:self.y,
+            map:self.map,
+        });
     };
 
     self.updateSpd = function(){
@@ -121,6 +131,7 @@ let Player = function(id){
             hp:self.hp,
             hpMax:self.hpMax,
             score:self.score,
+            map:self.map,
         };
     };
 
@@ -143,7 +154,7 @@ let Player = function(id){
         };
     };
 
-    Player.list[id] = self;
+    Player.list[self.id] = self;
 
     initPackage.player.push(self.getInitPackage());
     return self;
@@ -152,7 +163,14 @@ let Player = function(id){
 Player.list = {};
 
 Player.onConnect = function(socket) {
-    let player = Player(socket.id);
+    let map = 'forest';
+    if(Math.random() < 0.5){
+        map = 'field';
+    }
+    let player = Player({
+        id:socket.id,
+        map:map,
+    });
     socket.on('action', function (data) {
         switch (data.inputID) {
             case 'left':
@@ -203,13 +221,14 @@ Player.update = function(){
     return pack;
 };
 
-let Bullet = function(parent, angle){
-    let self = Entity();
+let Bullet = function(param){
+    let self = Entity(param);
     self.id = Math.random();
-    self.spdX = Math.cos(angle/180*Math.PI) * 10;
-    self.spdY = Math.sin(angle/180*Math.PI) * 10;
+    self.angle = param.angle;
+    self.spdX = Math.cos(param.angle/180*Math.PI) * 10;
+    self.spdY = Math.sin(param.angle/180*Math.PI) * 10;
     self.timer = 0;
-    self.parent = parent;
+    self.parent = param.parent;
     self.toRemove = false;
 
     let super_update = self.update;
@@ -220,7 +239,7 @@ let Bullet = function(parent, angle){
 
         for(let i in Player.list){
             let p = Player.list[i];
-            if(self.getDistance(p) < 32 && self.parent !== p.id){
+            if((self.map === p.map) && (self.getDistance(p) < 32) && (self.parent !== p.id)){
                 p.hp -= 1;
 
                 if(p.hp <= 0){
@@ -244,6 +263,7 @@ let Bullet = function(parent, angle){
             id:self.id,
             x:self.x,
             y:self.y,
+            map:self.map,
         };
     };
 
