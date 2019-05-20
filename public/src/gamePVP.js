@@ -164,10 +164,12 @@ let drawMap = function () {
     ctx.drawImage(Img.map[player.map], x, y);
 };
 
+let lastScore = null;
 let drawScore = function () {
+    if(lastScore === Player.list[selfId].score)
+        return;
     ctx.fillStyle = 'white';
     ctx.fillText(Player.list[selfId].score, 0, 30);
-
 };
 
 function Run () {

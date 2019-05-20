@@ -20,6 +20,10 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/client/selectLevel.html');
 });
 
+app.get('/level_PVP', function (req, res) {
+    res.sendFile(__dirname + '/client/level_PVP.html');
+});
+
 app.get('/level_1', function (req, res) {
     res.sendFile(__dirname + '/client/level_1.html');
 });
