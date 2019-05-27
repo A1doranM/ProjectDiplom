@@ -9,10 +9,8 @@ Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
 
 Img.map = {};
-Img.map['field'] = new Image();
-Img.map['field'].src = '../assets/map.png';
-Img.map['forest'] = new Image();
-Img.map['forest'].src = '../assets/map2.png';
+Img.map['level_1'] = new Image();
+Img.map['level_1'].src = '../assets/level_backgrounds/Level_1_1.png';
 
 let socket = io();
 
@@ -35,7 +33,7 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
         spdX:spdX,
         spdY:spdY,
         id:"",
-        map: 'forest',
+        map: 'level_1',
         width:width,
         height:height,
         img:img,
@@ -48,8 +46,10 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 
     self.draw = function(){
         ctx.save();
+        console.log(self.y);
         let x = self.x - player.x + WIDTH/2;
-        let y = self.y - player.y + HEIGHT/2;
+        let y = self.y - HEIGHT/2;
+        console.log(y);
 
         x -= self.width/2;
         y -= self.height/2;
@@ -91,7 +91,7 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 };
 
 let Player = function(){
-    let self = Entity(50,40,30,5,50,70,Img.player,10,1);
+    let self = Entity(50,1050,30,5,50,70,Img.player,10,1);
     self.number = "" + Math.floor(10 * Math.random());
     self.bulletAngle = 0;
     self.maxSpd = 10;
@@ -219,7 +219,7 @@ player = new Player();
 let drawMap = function () {
     let x = WIDTH/2 - player.x;
     let y = HEIGHT/2 - player.y;
-    ctx.drawImage(Img.map['forest'],0,0,Img.map['forest'].width,Img.map['forest'].height,x,y,Img.map['forest'].width*2,Img.map['forest'].height*2)
+    ctx.drawImage(Img.map['level_1'],0,0,Img.map['level_1'].width,Img.map['level_1'].height,x-370,0,Img.map['level_1'].width,Img.map['level_1'].height)
 };
 
 // let lastScore = null;

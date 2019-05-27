@@ -42,7 +42,7 @@ let Entity = function(param){
         spdX:0,
         spdY:0,
         id:"",
-        map: 'forest',
+        map: 'level_1',
     };
     if(param){
         if(param.x) self.x = param.x;
@@ -167,9 +167,9 @@ let Player = function(param){
 Player.list = {};
 
 Player.onConnect = function(socket) {
-    let map = 'forest';
+    let map = 'level_1';
     if(Math.random() < 0.5){
-        map = 'field';
+        map = 'level_1';
     }
     let player = Player({
         id:socket.id,

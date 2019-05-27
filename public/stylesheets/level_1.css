@@ -72,8 +72,12 @@ table {
 }
 
 #tips{
+    margin-left: 1%;
+    margin-right: 1%;
     display: inline-block;
+    border: 1px solid black;
     width: 15%;
+    height: 750px;
 }
 
 #canvas-wrapper{

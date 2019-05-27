@@ -9,10 +9,10 @@ Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
 
 Img.map = {};
-Img.map['field'] = new Image();
-Img.map['field'].src = '../assets/map.png';
-Img.map['forest'] = new Image();
-Img.map['forest'].src = '../assets/map2.png';
+Img.map['level_1'] = new Image();
+Img.map['level_1'].src = '../assets/map.png';
+Img.map['level_1'] = new Image();
+Img.map['level_1'].src = '../assets/map2.png';
 
 let socket = io();
 
