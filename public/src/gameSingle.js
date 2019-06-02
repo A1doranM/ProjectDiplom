@@ -8,16 +8,20 @@ Img.player.src = '../assets/player.png';
 Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
 
-Img.map = {};
-Img.map['level_1'] = new Image();
-Img.map['level_1'].src = '../assets/level_backgrounds/Level_1_1.png';
-
 let socket = io();
 
-let WIDTH = 750;
+let TILE_SIZE = 30;
+let WIDTH = 1250;
 let HEIGHT = 750;
 
 let player;
+let object;
+
+function Run () {
+    let script = document.getElementById("code").value;
+    eval(script);
+}
+
 
 testCollisionRectRect = function(rect1,rect2){
     return rect1.x <= rect2.x+rect2.width
@@ -25,6 +29,21 @@ testCollisionRectRect = function(rect1,rect2){
         && rect1.y <= rect2.y + rect2.height
         && rect2.y <= rect1.y + rect1.height;
 };
+
+let GameObject = function(name, x, y, width, height){
+    let self = {
+        x:x,
+        y:y,
+        height:height,
+        width:width,
+        name:name,
+        rightBumper: x + width/2,
+        leftBumper: x - width/2
+    };
+    return self;
+};
+
+object = new GameObject('sofa', 1200,1050, 400, 500);
 
 let Entity = function(x,y,spdX,spdY,width,height,img){
     let self = {
@@ -46,10 +65,9 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 
     self.draw = function(){
         ctx.save();
-        console.log(self.y);
+
         let x = self.x - player.x + WIDTH/2;
         let y = self.y - HEIGHT/2;
-        console.log(y);
 
         x -= self.width/2;
         y -= self.height/2;
@@ -91,156 +109,95 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 };
 
 let Player = function(){
-    let self = Entity(50,1050,30,5,50,70,Img.player,10,1);
+    let self = Entity(750,1050,30,5,50,70,Img.player,10,1);
     self.number = "" + Math.floor(10 * Math.random());
     self.bulletAngle = 0;
-    self.maxSpd = 10;
+    self.maxSpd = 30;
     self.hpMax = 5;
     self.score = 0;
 
     self.moveLeft = function(){
-        self.x += -self.maxSpd;
+        let leftBumper = {x:self.x - 40,y:self.y};
+        self.x -= self.maxSpd;
     };
     self.moveRight = function(){
-        self.x += self.maxSpd;
+        let oldX = self.x;
+        let rightBumper = {x:self.x + 40,y:self.y};
+
+        if(rightBumper.x === object.leftBumper){
+            self.x = oldX;
+        }
+        else {
+            self.x += self.maxSpd;
+        }
     };
     self.moveUP = function(){
-        self.y += -self.maxSpd;
+        let upBumper = {x:self.x,y:self.y - 16};
+        self.y -= self.maxSpd;
     };
     self.moveDown = function(){
+        let downBumper = {x:self.x,y:self.y + 64};
         self.y += self.maxSpd;
     };
-    // self.shoot = function () {
-    //     for(let i = -3; i < 3; i++){
-    //         self.shootBullet(i * 10 + self.angle);
-    //     }
-    //     self.shootBullet(self.bulletAngle);
-    // };
-
-    // self.shootBullet = function(angle){
-    //     Bullet({
-    //         parent:self.id,
-    //         angle:angle,
-    //         x:self.x,
-    //         y:self.y,
-    //         map:self.map,
-    //     });
-    // };
     return self;
 };
 
-// let Bullet = function(param){
-//     let self = Entity(param);
-//     self.id = Math.random();
-//     self.angle = param.angle;
-//     self.spdX = Math.cos(param.angle/180*Math.PI) * 10;
-//     self.spdY = Math.sin(param.angle/180*Math.PI) * 10;
-//     self.timer = 0;
-//     self.parent = param.parent;
-//     self.toRemove = false;
-//
-//     let super_update = self.update;
-//     self.update = function(){
-//         if(self.timer++ > 100)
-//             self.toRemove = true;
-//         super_update();
-//
-//         for(let i in Player.list){
-//             let p = Player.list[i];
-//             if((self.map === p.map) && (self.getDistance(p) < 32) && (self.parent !== p.id)){
-//                 p.hp -= 1;
-//
-//                 if(p.hp <= 0){
-//                     let shooter = Player.list[self.parent];
-//                     if(shooter){
-//                         shooter.score += 1;
-//                     }
-//                     p.hp = p.hpMax;
-//                     p.x = Math.random() * 500;
-//                     p.y = Math.random() * 500;
-//
-//                 }
-//
-//                 self.toRemove = true;
-//             }
-//         }
-//     };
-//
-//     self.getInitPackage = function(){
-//         return{
-//             id:self.id,
-//             x:self.x,
-//             y:self.y,
-//             map:self.map,
-//         };
-//     };
-//
-//     self.getUpdatePackage = function(){
-//         return{
-//             id:self.id,
-//             x:self.x,
-//             y:self.y,
-//         };
-//     };
-//
-//     Bullet.list[self.id] = self;
-//     initPackage.bullet.push(self.getInitPackage());
-//     return self;
-// };
-//
-// Bullet.list = {};
-//
-// Bullet.update = function(){
-//     let pack = [];
-//
-//     for(let i in Bullet.list){
-//         let bullet = Bullet.list[i];
-//         bullet.update();
-//         if(bullet.toRemove){
-//             delete Bullet.list[i];
-//             removePackage.bullet.push(bullet.id);
-//         } else {
-//             pack.push(bullet.getUpdatePackage());
-//         }
-//     }
-//     return pack;
-// };
-//
-// Bullet.getAllInitPacks = function() {
-//     let bullets = [];
-//     for (let i in Bullet.list) {
-//         bullets.push(Bullet.list[i].getInitPackage());
-//     }
-//     return bullets;
-// };
-
 player = new Player();
 
-let drawMap = function () {
-    let x = WIDTH/2 - player.x;
-    let y = HEIGHT/2 - player.y;
-    ctx.drawImage(Img.map['level_1'],0,0,Img.map['level_1'].width,Img.map['level_1'].height,x-370,0,Img.map['level_1'].width,Img.map['level_1'].height)
+Maps = function(id,imgSrc,grid){
+    let self = {
+        id:id,
+        image:new Image(),
+        width:grid[0].length * TILE_SIZE,
+        height:grid.length * TILE_SIZE,
+        grid:grid,
+    };
+    self.image.src = imgSrc;
+
+    self.isPositionWall = function(pt){
+        let gridX = Math.floor(pt.x / TILE_SIZE);
+        let gridY = Math.floor(pt.y / TILE_SIZE);
+        console.log(gridY + " " + gridY);
+        if(gridX < 0 || gridX >= self.grid[0].length) {
+            return true;
+        }
+        if(gridY < 0 || gridY >= self.grid.length) {
+            return true;
+        }
+        return self.grid[gridY][gridX];
+    };
+
+    self.draw = function(){
+        let x = WIDTH/2 - player.x;
+        ctx.drawImage(self.image,0,0,self.image.width,self.image.height,x,0,self.image.width,self.image.height);
+    };
+    return self;
 };
 
-// let lastScore = null;
-// let drawScore = function () {
-//     if(lastScore === Hero.score)
-//         return;
-//     ctx.fillStyle = 'white';
-//     ctx.fillText(Hero.score, 0, 30);
-// };
+let arrayCollision2D = [];
+for(let i = 0 ; i < 25; i++){
+    arrayCollision2D[i] = [];
+    for(let j = 0 ; j < 240; j++){
+        arrayCollision2D[i][j] = collisionArray[i * 25 + j];
+    }
+}
+// let xm = 0;
+// let ym = 0;
+// for(xm = 0 ; xm < 25; xm++) {
+//     console.log("special: " + xm + " " + ym + ": " + arrayCollision2D[xm][ym]);
+//     for(ym = 0 ; ym < 240; ym++) {
+//         console.log("special: " + xm + " " + ym + ": " + arrayCollision2D[xm][ym]);
+//     }
+// }
+
+Maps.current = Maps('level_1', '../assets/level_backgrounds/Level_1.png', arrayCollision2D);
 
 setInterval(function () {
     ctx.clearRect(0,0,WIDTH,HEIGHT);
-    drawMap();
+    Maps.current.draw();
     player.update();
-    // Bullet.draw();
+    console.log(player.x + " " + player.y);
 }, 40);
-
-function Run () {
-    let script = document.getElementById("code").value;
-    eval(script);
-}
 
 document.onkeydown = function(event){
     if(event.keyCode === 68)    //d
@@ -252,3 +209,4 @@ document.onkeydown = function(event){
     else if(event.keyCode === 87) // w
         player.moveUP();
 };
+

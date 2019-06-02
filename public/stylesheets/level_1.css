@@ -67,21 +67,33 @@ table {
 /*           User styles           */
 /*=================================*/
 
+body{
+    /*background-image: url("../assets/web_page_skeleton.png");*/
+    /*background-position:center top;*/
+    /*background-size:cover;*/
+    /*background-repeat: no-repeat;*/
+}
+
 #main-screen{
-    margin-top: 3%;
+    margin-top: 0.5%;
+    margin-left: 0.30%;
+    margin-bottom: 0.5%;
+    margin-right: 0.30%;
 }
 
 #tips{
-    margin-left: 1%;
-    margin-right: 1%;
-    display: inline-block;
+    margin-top: 5px;
+    display: block;
     border: 1px solid black;
-    width: 15%;
-    height: 750px;
+    width: 1250px;
+    height: 160px;
+    background-image: url("../assets/tips_task.png");
+    background-position:center top;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 #canvas-wrapper{
-    margin-left: 20px;
     display: inline-block;
     position: relative;
     white-space: nowrap;
@@ -94,20 +106,20 @@ table {
 #code-area{
     position: absolute;
     display: inline-block;
-    width: 31%;
-    height: 790px;
+    margin-left: 5px;
+    width: 647px;
+    height: 920px;
     min-height: 300px;
+    border: 1px solid black;
     background-image: url("../assets/console.png");
     background-position:center top;
-    background-size:cover;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
 #code{
-    margin-top: 11%;
-    margin-left: 15%;
-    width: 70%;
-    height: 600px;
+    width: 642px;
+    height: 914px;
     font-family: "Arial";
     font-size: 22px;
     background-color: transparent;
