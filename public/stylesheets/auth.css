@@ -53,11 +53,64 @@ table {
 /*=================================*/
 
 html {
-    background: url("../assets/background_auth_reg.png") no-repeat center center fixed;
+    background: url("../assets/auth_screen.png") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: 100% 100%;
+}
+
+/*=================================*/
+/*           Introduce             */
+/*=================================*/
+
+#introduce{
+    margin-top: 5vh;
+    position: relative;
+    z-index: 30;
+    width: 70vw;
+    height: 79vh;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
+h1{
+    margin-top: 4vh;
+    text-decoration: none;
+    font: 5vh "Jokerman", Arial, sans-serif;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+}
+
+#row_2{
+    margin-top: 2vh;
+    font: 4vh "Jokerman", Arial, sans-serif;
+    line-height: 40px;
+}
+
+h2{
+    margin-top: 4vh;
+    text-decoration: none;
+    font: 3vh "Jokerman", Arial, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+    text-align: center;
+    color: #000000;
+}
+
+.row_3{
+    display: inline-block;
+    width: 50vh;
+}
+
+#row_3_left{
+    margin-left: 5vw;
+}
+
+#row_3_right{
+    margin-left: 10vw;
 }
 
 /*=================================*/
@@ -65,43 +118,44 @@ html {
 /*=================================*/
 
 #authForm {
-    width: 800px;
-    height: 500px;
-    background-image: url("../assets/login_registrate_menu.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: 70vw;
+    height: 79vh;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
     z-index: 22;
+    background-color: #b5b6b6;
+    border: 10px solid #2398bc;
+    opacity: 0.7;
 }
 
 #signin_password {
-    margin-top: 2.8%;
+    margin-top: 7.8vh;
 }
 
 #signin_email {
-    margin-top: 30.3%;
+    margin-top: 53.3vh;
 }
 
 .form_row input {
     position: relative;
-    height: 27px;
-    width: 79.6%;
-    left: 9.3%;
+    height: 4.7vh;
+    width: 19.4vw;
+    /*width: auto;*/
+    left: 41.6vw;
 }
 
 .form_btn {
-    background-color: Transparent;
+    background-color: transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
     position: relative;
-    margin-top: 4%;
+    margin-top: 0%;
     height: 60px;
-    width: 36%;
+    width: 16%;
     outline:none;
 }
 
@@ -110,42 +164,51 @@ html {
 }
 
 #btn_login {
-    margin-left: 7%;
+    margin-left: 20%;
 }
 
 /*=================================*/
 /*           Registration          */
 /*=================================*/
 
-#regForm {
-    width: 800px;
-    height: 500px;
-    background-image: url("../assets/reg_form.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 21;
-}
+    /*#regForm {*/
+        /*width: 800px;*/
+        /*height: 500px;*/
+        /*background-image: url("../assets/reg_form.png");*/
+        /*background-size: contain;*/
+        /*background-repeat: no-repeat;*/
+        /*position: fixed;*/
+        /*top: 50%;*/
+        /*left: 50%;*/
+        /*transform: translate(-50%, -50%);*/
+        /*z-index: 21;*/
+    /*}*/
 
-#reg_email{
-    margin-top: 23%;
-}
+    /*#reg_email{*/
+        /*margin-top: 23%;*/
+    /*}*/
 
-#reg_login{
-    margin-top: 3.3%;
-}
+    /*#reg_login{*/
+        /*margin-top: 3.3%;*/
+    /*}*/
 
-#reg_password{
-    margin-top: 2.5%;
-}
+    /*#reg_password{*/
+        /*margin-top: 2.5%;*/
+    /*}*/
 
-#reg_btn_signup{
-    margin-left: 10%;
-}
+    /*#reg_btn_signup{*/
+        /*margin-left: 10%;*/
+    /*}*/
 
-#reg_btn_signin{
-    margin-left: 7%;
-}
+    /*#reg_btn_signin{*/
+        /*margin-left: 7%;*/
+    /*}*/
+
+
+/*.background {*/
+/*z-index: -1;*/
+/*top:0;*/
+/*left:0;*/
+/*width:100vw;*/
+/*height:100vh;*/
+/*}*/

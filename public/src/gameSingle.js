@@ -15,7 +15,8 @@ let WIDTH = 1250;
 let HEIGHT = 750;
 
 let player;
-let object;
+let gameObjects;
+gameObjects = [];
 
 function Run () {
     let script = document.getElementById("code").value;
@@ -30,20 +31,46 @@ testCollisionRectRect = function(rect1,rect2){
         && rect2.y <= rect1.y + rect1.height;
 };
 
-let GameObject = function(name, x, y, width, height){
+let GameObject = function(x, y, width, height, type){
     let self = {
         x:x,
         y:y,
         height:height,
         width:width,
         name:name,
-        rightBumper: x + width/2,
-        leftBumper: x - width/2
+        type:type,
     };
+    self.triggerLeft = self.leftBumper + 10;
+    self.triggerRight = self.rightBumper + 10;
+    self.rightBumper: Math.ceil((x + width/2)/10)*10;
+    self.leftBumper: Math.ceil((x - width/2)/10)*10;
+    self.upBumper: Math.ceil((y - height/2)/10)*10;
+    self.downBumper: Math.ceil((y + height/2)/10)*10;
+
+    self.draw = function (){
+
+    };
+
     return self;
 };
 
-object = new GameObject('sofa', 1200,1050, 400, 500);
+gameObjects[0] = new GameObject(1330, 970, 430, 330, 'sofa');
+gameObjects[1] = new GameObject(1940, 220, 60, 120, 'crystal');
+
+//sofa 1330x970
+//first crystal 1940x220
+//first glass table 1830x1000
+//fireplace 2410x690
+//second sofa 3000x980
+//waredrobe 3860x780
+//second crystal 3320x450
+//third crystall 4370x450
+//second and third tables 5540x1010
+//wing 5870x840
+//cornflakes 5410x840
+//books 5740x840
+//last crystal 6930x1030
+//last door 7130x1030
 
 let Entity = function(x,y,spdX,spdY,width,height,img){
     let self = {
@@ -112,32 +139,86 @@ let Player = function(){
     let self = Entity(750,1050,30,5,50,70,Img.player,10,1);
     self.number = "" + Math.floor(10 * Math.random());
     self.bulletAngle = 0;
-    self.maxSpd = 30;
+    self.maxSpd = 10;
     self.hpMax = 5;
     self.score = 0;
+    self.heightFromFloor = 0;
+    let leftBumper = {x:self.x - 15, y:self.y};
+    let rightBumper = {x:self.x + 15, y:self.y};
+    let downBumper = {x:self.x, y:self.y + 40};
+    let upBumper = {x:self.x, y:self.y - 40};
 
-    self.moveLeft = function(){
-        let leftBumper = {x:self.x - 40,y:self.y};
-        self.x -= self.maxSpd;
+    let updateBumpers = function(){
+        leftBumper = self.x - 30;
+        rightBumper = self.x + 30;
+        downBumper = self.y + 40;
+        upBumper = self.y - 40;
     };
-    self.moveRight = function(){
-        let oldX = self.x;
-        let rightBumper = {x:self.x + 40,y:self.y};
 
-        if(rightBumper.x === object.leftBumper){
-            self.x = oldX;
+    self.moveLeft = function() {
+        updateBumpers();
+        let oldX = self.x;
+        if (leftBumper === gameObjects[0].rightBumper) {
+            if ((upBumper >= gameObjects[0].downBumper) || (downBumper <= gameObjects[0].upBumper)) {
+                self.x -= self.maxSpd;
+            } else {
+                self.x = oldX;
+            }
+        } else {
+            self.x -= self.maxSpd;
         }
-        else {
+    };
+
+    self.moveRight = function(){
+        updateBumpers();
+        let oldX = self.x;
+        let trigger = rightBumper;
+        while(trigger < 7200){
+            if(trigger === gameObjects[0]){
+
+            }
+            trigger += 10;
+        }
+        console.log(gameObjects[0].leftBumper);
+        if (rightBumper === gameObjects[0].leftBumper) {
+            if ((upBumper <= gameObjects[0].downBumper) && (downBumper >= gameObjects[0].upBumper)) {
+                self.x = oldX;
+            } else {
+                self.x += self.maxSpd;
+            }
+        } else {
             self.x += self.maxSpd;
         }
     };
     self.moveUP = function(){
-        let upBumper = {x:self.x,y:self.y - 16};
-        self.y -= self.maxSpd;
+        updateBumpers();
+        let oldY = self.y;
+        for(let i = 0; i < gameObjects.length; i++) {
+            if (upBumper === gameObjects[i].downBumper) {
+                if ((leftBumper >= gameObjects[i].rightBumper) || (rightBumper <= gameObjects[i].leftBumper)) {
+                    self.y -= self.maxSpd;
+                } else {
+                    self.y = oldY;
+                }
+            } else {
+                self.y -= self.maxSpd;
+            }
+        }
     };
     self.moveDown = function(){
-        let downBumper = {x:self.x,y:self.y + 64};
-        self.y += self.maxSpd;
+        updateBumpers();
+        let oldY = self.y;
+        for(let i = 0; i < gameObjects.length; i++) {
+            if (downBumper === gameObjects[i].upBumper) {
+                if ((leftBumper >= gameObjects[i].rightBumper) || (rightBumper <= gameObjects[i].leftBumper)) {
+                    self.y += self.maxSpd;
+                } else {
+                    self.y = oldY;
+                }
+            } else {
+                self.y += self.maxSpd;
+            }
+        }
     };
     return self;
 };
@@ -157,7 +238,6 @@ Maps = function(id,imgSrc,grid){
     self.isPositionWall = function(pt){
         let gridX = Math.floor(pt.x / TILE_SIZE);
         let gridY = Math.floor(pt.y / TILE_SIZE);
-        console.log(gridY + " " + gridY);
         if(gridX < 0 || gridX >= self.grid[0].length) {
             return true;
         }
@@ -170,6 +250,7 @@ Maps = function(id,imgSrc,grid){
     self.draw = function(){
         let x = WIDTH/2 - player.x;
         ctx.drawImage(self.image,0,0,self.image.width,self.image.height,x,0,self.image.width,self.image.height);
+        console.log('width: ' + self.image.width);
     };
     return self;
 };
@@ -181,14 +262,6 @@ for(let i = 0 ; i < 25; i++){
         arrayCollision2D[i][j] = collisionArray[i * 25 + j];
     }
 }
-// let xm = 0;
-// let ym = 0;
-// for(xm = 0 ; xm < 25; xm++) {
-//     console.log("special: " + xm + " " + ym + ": " + arrayCollision2D[xm][ym]);
-//     for(ym = 0 ; ym < 240; ym++) {
-//         console.log("special: " + xm + " " + ym + ": " + arrayCollision2D[xm][ym]);
-//     }
-// }
 
 Maps.current = Maps('level_1', '../assets/level_backgrounds/Level_1.png', arrayCollision2D);
 
@@ -196,7 +269,6 @@ setInterval(function () {
     ctx.clearRect(0,0,WIDTH,HEIGHT);
     Maps.current.draw();
     player.update();
-    console.log(player.x + " " + player.y);
 }, 40);
 
 document.onkeydown = function(event){
@@ -210,3 +282,21 @@ document.onkeydown = function(event){
         player.moveUP();
 };
 
+document.getElementById('game').onclick = function(e) {
+    console.log(player.x, player.y);
+};
+
+//sofa 1330x 970
+//first crystal 1940x220
+//first glass table 1830x1000
+//fireplace 2410x690
+//second sofa 3000x980
+//waredrobe 3860x780
+//second crystal 3320x450
+//third crystall 4370x450
+//second and third tables 5540x1010
+//wing 5870x840
+//cornflakes 5410x840
+//books 5740x840
+//last crystal 6930x1030
+//last door 7130x1030
