@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f983ca4-8880-433b-b2ee-1be1f7d67979" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/MAIN-BG4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/MAIN-BG4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/authform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/button_reg_auth.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/stylesheets/authform.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/level_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/level_1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/tips_task.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/tips_task.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/web_page_skeleton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/src/gameSingle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/gameSingle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/MAIN-BG4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/login_registrate_menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/reg_form.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/level_1.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/level_1.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6069">
-              <caret line="364" selection-start-line="364" selection-end-line="364" />
+            <state relative-caret-position="228">
+              <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -40,8 +40,8 @@
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+            <state relative-caret-position="242">
+              <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -49,8 +49,26 @@
       <file leaf-file-name="auth.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/auth.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+            <state relative-caret-position="351">
+              <caret line="193" column="44" selection-start-line="193" selection-start-column="44" selection-end-line="193" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authform.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/authform.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authform.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/stylesheets/authform.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -58,8 +76,8 @@
       <file leaf-file-name="gameSingle.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/gameSingle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
+            <state relative-caret-position="181">
+              <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -67,20 +85,8 @@
       <file leaf-file-name="registrate.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/registrate.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
+            <state relative-caret-position="1258">
               <caret line="74" column="15" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gamePVP.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/gamePVP.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="13" />
-              <folding>
-                <element signature="n#!!block;n#Run#0" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -97,7 +103,7 @@
       <file leaf-file-name="level_1.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/level_1.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
+            <state relative-caret-position="2669">
               <caret line="157" column="23" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="157" selection-end-column="23" />
             </state>
           </provider>
@@ -108,9 +114,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -125,6 +131,7 @@
       <find>cons</find>
       <find>consol</find>
       <find>conso</find>
+      <find>relative</find>
     </findStrings>
     <replaceStrings>
       <replace>level_1</replace>
@@ -176,10 +183,12 @@
         <option value="$PROJECT_DIR$/public/assets/test/test240x240.json" />
         <option value="$PROJECT_DIR$/public/assets/test/Level_1.json" />
         <option value="$PROJECT_DIR$/public/src/maps.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/client/level_1.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/level_1.css" />
         <option value="$PROJECT_DIR$/public/src/gameSingle.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/client/authform.html" />
+        <option value="$PROJECT_DIR$/public/stylesheets/authform.css" />
         <option value="$PROJECT_DIR$/client/login.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/auth.css" />
       </list>
@@ -199,10 +208,10 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="240" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="773" />
     <option name="y" value="7" />
-    <option name="width" value="974" />
+    <option name="width" value="1104" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -211,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,6 +259,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,19 +274,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets" />
-      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public" />
-      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets\level_backgrounds" />
-      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\src" />
-      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets\test" />
       <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets" />
       <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\client" />
       <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom" />
       <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\assets\Images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets" />
+      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public" />
+      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\assets\level_backgrounds" />
+      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom\public\src" />
+      <recent name="C:\Users\aldor\WebstormProjects\ProjectDiplom" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -381,7 +390,8 @@
       <workItem from="1559465498363" duration="2948000" />
       <workItem from="1559554417586" duration="14084000" />
       <workItem from="1559646890448" duration="17328000" />
-      <workItem from="1559717838612" duration="10140000" />
+      <workItem from="1559717838612" duration="10334000" />
+      <workItem from="1559749013884" duration="13337000" />
     </task>
     <task id="LOCAL-00001" summary="Start version">
       <created>1549973050026</created>
@@ -544,26 +554,34 @@
       <option name="project" value="LOCAL" />
       <updated>1559466819433</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added new auth page (not completed)">
+      <created>1559748256139</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1559748256139</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353096000" />
+    <option name="totallyTimeSpent" value="366627000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="773" y="7" width="1104" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14166667" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32747254" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32937366" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32829374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.34218916" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34725276" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -571,7 +589,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32829374" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -613,7 +630,8 @@
     <MESSAGE value="Added Client part and pages for level_1 and PVP" />
     <MESSAGE value="Added new background for Level_1, change character control" />
     <MESSAGE value="Added new background for Level_1, backgrounds for console and tips" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new background for Level_1, backgrounds for console and tips" />
+    <MESSAGE value="Added new auth page (not completed)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new auth page (not completed)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -621,24 +639,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/src/CompilePlayerCode.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/registration.html" />
-    <entry file="file://$PROJECT_DIR$/public/assets/login_registrate_menu.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/Parser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="436" selection-start-line="436" selection-end-line="436" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/10.14.2/core-modules/events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -648,9 +648,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/Execute.png" />
     <entry file="file://$PROJECT_DIR$/public/assets/room1.png" />
-    <entry file="file://$PROJECT_DIR$/public/assets/reg_form.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/console.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -761,16 +758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6069">
-          <caret line="364" selection-start-line="364" selection-end-line="364" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/level_1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -778,41 +765,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/auth_screen.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/level_1.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
+        <state relative-caret-position="2669">
           <caret line="157" column="23" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="157" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/registrate.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
+        <state relative-caret-position="1258">
           <caret line="74" column="15" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/src/gameSingle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
+        <state relative-caret-position="181">
+          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/authform.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/authform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="28" column="16" lean-forward="true" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        <state relative-caret-position="242">
+          <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/reg_auth.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/reg_form.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/button_reg_auth.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/auth_screen.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/auth.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+        <state relative-caret-position="351">
+          <caret line="193" column="44" selection-start-line="193" selection-start-column="44" selection-end-line="193" selection-end-column="44" />
         </state>
       </provider>
     </entry>

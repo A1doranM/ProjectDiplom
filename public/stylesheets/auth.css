@@ -61,17 +61,17 @@ html {
 }
 
 /*=================================*/
-/*           Introduce             */
+/*           Authorization         */
 /*=================================*/
 
-#introduce{
-    margin-top: 5vh;
-    position: relative;
-    z-index: 30;
+#authForm{
+    margin-top: 1vh;
+    position: absolute;
+    z-index: 23;
     width: 70vw;
     height: 79vh;
-    top: 50vh;
-    left: 50vw;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -85,42 +85,126 @@ h1{
 }
 
 #row_2{
-    margin-top: 2vh;
     font: 4vh "Jokerman", Arial, sans-serif;
     line-height: 40px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    right: 12%;
 }
 
-h2{
-    margin-top: 4vh;
+p{
+    text-indent: 1.5em; /* Отступ первой строки */
+    text-align: center; /* Выравнивание по ширине */
+    margin-top: 5vh;
     text-decoration: none;
     font: 3vh "Jokerman", Arial, sans-serif;
     font-weight: bold;
-    line-height: 60px;
-    text-align: center;
+    line-height: 10px;
     color: #000000;
 }
 
 .row_3{
+    position: absolute;
     display: inline-block;
-    width: 50vh;
+    width: 49%;
+    top: 21%;
 }
 
 #row_3_left{
-    margin-left: 5vw;
+    left: 1%;
+    right: 90%;
 }
 
 #row_3_right{
-    margin-left: 10vw;
+    left: 47%;
+    right: 50%;
+}
+
+.row_4_5{
+    position: absolute;
+    margin-left: 54.9%;
+}
+
+#row_4_right{
+    top: 50%;
+}
+
+#row_5_right{
+    top: 65%;
+    height: 3%;
+}
+
+
+.labels{
+    text-indent: 1.5em; /* Отступ первой строки */
+    text-align: center; /* Выравнивание по ширине */
+    margin-top: 5vh;
+    text-decoration: none;
+    font: 4vh "Jokerman", Arial, sans-serif;
+    font-weight: bold;
+    line-height: 10px;
+}
+
+#login_label{
+    margin-top: 20%;
+}
+
+#password_label{
+    margin-top: 38%;
+}
+
+#signin_password {
+    top: 82%;
+}
+
+#signin_email {
+    top: 65%;
+}
+
+.form_row input {
+    position: absolute;
+    height: 4.7vh;
+    width: 19.4vw;
+    left: 41.6vw;
+    opacity: 0.7;
+}
+
+.form_btn {
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    position: absolute;
+    display: inline-block;
+    height: 100px;
+    width: 8%;
+    outline:none;
+    margin-bottom: 20%;
+}
+
+#btn_signup{
+    top: 70%;
+    left: 20%;
+}
+
+#btn_login {
+    background-image: url("../assets/button_reg_auth.png");
+    background-size: contain;
+    top: 70%;
+    left: 90%;
 }
 
 /*=================================*/
-/*           Authorization         */
+/*           Background            */
 /*=================================*/
 
-#authForm {
+#background {
     width: 70vw;
     height: 79vh;
-    position: fixed;
+    position: absolute;
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
@@ -128,43 +212,6 @@ h2{
     background-color: #b5b6b6;
     border: 10px solid #2398bc;
     opacity: 0.7;
-}
-
-#signin_password {
-    margin-top: 7.8vh;
-}
-
-#signin_email {
-    margin-top: 53.3vh;
-}
-
-.form_row input {
-    position: relative;
-    height: 4.7vh;
-    width: 19.4vw;
-    /*width: auto;*/
-    left: 41.6vw;
-}
-
-.form_btn {
-    background-color: transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    position: relative;
-    margin-top: 0%;
-    height: 60px;
-    width: 16%;
-    outline:none;
-}
-
-#btn_signup{
-    margin-left: 10%;
-}
-
-#btn_login {
-    margin-left: 20%;
 }
 
 /*=================================*/
