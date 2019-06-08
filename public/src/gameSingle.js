@@ -18,12 +18,14 @@ let player;
 let gameObjects;
 gameObjects = [];
 
+
+//Выполняет команды из консоли
 function Run () {
     let script = document.getElementById("code").value;
     eval(script);
 }
 
-
+//не используется
 testCollisionRectRect = function(rect1,rect2){
     return rect1.x <= rect2.x+rect2.width
         && rect2.x <= rect1.x+rect1.width
@@ -31,6 +33,7 @@ testCollisionRectRect = function(rect1,rect2){
         && rect2.y <= rect1.y + rect1.height;
 };
 
+//игровые объекты на карте. Точнее точки куда персоонаж бегает когда ты вводишь команду (они не видимы)
 let GameObject = function(x, y, width, height, type){
     let self = {
         x:x,
@@ -44,18 +47,22 @@ let GameObject = function(x, y, width, height, type){
         upBumper: Math.ceil((y - height/2)/10)*10,
         downBumper: Math.ceil((y + height/2)/10)*10,
     };
+
+    //их рамки когда персоонаж доходит до них то он останавливается
     self.triggerLeft = self.leftBumper + 10;
     self.triggerRight = self.rightBumper + 10;
     self.triggerUP = self.upBumper - 10;
     self.triggerDown = self.downBumper + 10;
 
-    self.draw = function (){
-
-    };
+    // self.draw = function (){
+    //
+    // };
 
     return self;
 };
 
+//это я парочку штук на карте создал мы с тобой потом обсудить должны это
+// у нас персоонаж
 gameObjects[0] = new GameObject(1330, 970, 430, 330, 'sofa');
 gameObjects[1] = new GameObject(1940, 220, 60, 120, 'crystal');
 
@@ -193,7 +200,6 @@ let Player = function(){
     self.maxSpd = 10;
     self.hpMax = 5;
     self.score = 0;
-    self.heightFromFloor = 0;
     let leftBumper = {x:self.x - 20, y:self.y};
     let rightBumper = {x:self.x + 20, y:self.y};
     let downBumper = {x:self.x, y:self.y + 40};
@@ -206,42 +212,62 @@ let Player = function(){
         upBumper = self.y - 40;
     };
 
-    self.moveLeft = function() {
+    self.moveLeft = function(steps_custom) {
         updateBumpers();
-        let steps = self.countSteps('left', leftBumper);
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = self.countSteps('left', rightBumper);
+        }
         for(let i = 0; i < steps; i++) {
-            setInterval(function () {
+            // setInterval(function () {
                 self.x -= self.maxSpd;
-            }, 40);
+            // }, 40);
         }
     };
 
-    self.moveRight = function(){
+    self.moveRight = function(steps_custom){
         updateBumpers();
-        let steps = self.countSteps('right', rightBumper);
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = self.countSteps('right', leftBumper);
+        }
         for(let i = 0; i < steps; i++) {
-            setInterval(function () {
+            // setInterval(function () {
                 self.x += self.maxSpd;
-            }, 40);
+            // }, 40);
         }
     };
 
-    self.moveUP = function(){
+    self.moveUP = function(steps_custom){
         updateBumpers();
-        let steps = self.countSteps('up', upBumper);
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = self.countSteps('up', downBumper);
+        }
         for(let i = 0; i < steps; i++) {
-            setInterval(function () {
+            // setInterval(function () {
                 self.y -= self.maxSpd;
-            }, 40);
+            // }, 40);
         }
     };
-    self.moveDown = function(){
+    self.moveDown = function(steps_custom){
         updateBumpers();
-        let steps = self.countSteps('down', downBumper);
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = self.countSteps('down', upBumper);
+        }
         for(let i = 0; i < steps; i++) {
-            setInterval(function () {
+            // setInterval(function () {
                 self.y += self.maxSpd;
-            }, 40);
+            // }, 40);
 
         }
     };
@@ -310,18 +336,3 @@ document.onkeydown = function(event){
 document.getElementById('game').onclick = function(e) {
     console.log(player.x, player.y);
 };
-
-//sofa 1330x 970
-//first crystal 1940x220
-//first glass table 1830x1000
-//fireplace 2410x690
-//second sofa 3000x980
-//waredrobe 3860x780
-//second crystal 3320x450
-//third crystall 4370x450
-//second and third tables 5540x1010
-//wing 5870x840
-//cornflakes 5410x840
-//books 5740x840
-//last crystal 6930x1030
-//last door 7130x1030
