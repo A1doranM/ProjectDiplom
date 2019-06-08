@@ -67,7 +67,7 @@ html {
 #authForm{
     margin-top: 1vh;
     position: absolute;
-    z-index: 23;
+    z-index: 30;
     width: 70vw;
     height: 79vh;
     top: 50%;
@@ -218,38 +218,37 @@ p{
 /*           Registration          */
 /*=================================*/
 
-    /*#regForm {*/
-        /*width: 800px;*/
-        /*height: 500px;*/
-        /*background-image: url("../assets/reg_form.png");*/
-        /*background-size: contain;*/
-        /*background-repeat: no-repeat;*/
-        /*position: fixed;*/
-        /*top: 50%;*/
-        /*left: 50%;*/
-        /*transform: translate(-50%, -50%);*/
-        /*z-index: 21;*/
-    /*}*/
+#regForm {
+    margin-top: 1vh;
+    position: absolute;
+    z-index: 29;
+    width: 70vw;
+    height: 79vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
 
-    /*#reg_email{*/
-        /*margin-top: 23%;*/
-    /*}*/
+#reg_email{
+    margin-top: 23%;
+}
 
-    /*#reg_login{*/
-        /*margin-top: 3.3%;*/
-    /*}*/
+#reg_login{
+    margin-top: 3.3%;
+}
 
-    /*#reg_password{*/
-        /*margin-top: 2.5%;*/
-    /*}*/
+#reg_password{
+    margin-top: 2.5%;
+}
 
-    /*#reg_btn_signup{*/
-        /*margin-left: 10%;*/
-    /*}*/
+#reg_btn_signup{
+    margin-left: 10%;
+}
 
-    /*#reg_btn_signin{*/
-        /*margin-left: 7%;*/
-    /*}*/
+#reg_btn_signin{
+    margin-left: 7%;
+}
 
 
 /*.background {*/

@@ -39,13 +39,15 @@ let GameObject = function(x, y, width, height, type){
         width:width,
         name:name,
         type:type,
+        rightBumper: Math.ceil((x + width/2)/10)*10,
+        leftBumper: Math.ceil((x - width/2)/10)*10,
+        upBumper: Math.ceil((y - height/2)/10)*10,
+        downBumper: Math.ceil((y + height/2)/10)*10,
     };
     self.triggerLeft = self.leftBumper + 10;
     self.triggerRight = self.rightBumper + 10;
-    self.rightBumper: Math.ceil((x + width/2)/10)*10;
-    self.leftBumper: Math.ceil((x - width/2)/10)*10;
-    self.upBumper: Math.ceil((y - height/2)/10)*10;
-    self.downBumper: Math.ceil((y + height/2)/10)*10;
+    self.triggerUP = self.upBumper - 10;
+    self.triggerDown = self.downBumper + 10;
 
     self.draw = function (){
 
@@ -111,10 +113,6 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
         self.y += self.spdY;
     };
 
-    self.getDistance = function (pt) {
-        return Math.sqrt(Math.pow(self.x - pt.x, 2) + Math.pow(self.y - pt.y, 2));
-    };
-
     self.testCollision = function(entity2){	//return if colliding (true/false)
         let rect1 = {
             x:self.x-self.width/2,
@@ -129,8 +127,61 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
             height:entity2.height,
         };
         return testCollisionRectRect(rect1,rect2);
-
     };
+
+    self.countSteps = function(direction, start){
+        let trigger = start + 10;
+        switch (direction){
+            case 'left':
+                while(trigger < 7200){
+                    for(let i = 0; i < gameObjects.length; i++) {
+                        if (trigger === gameObjects[i].rightBumper){
+                            let steps = Math.abs((start - 10) - gameObjects[i].rightBumper)/10;
+                            return steps;
+                        }
+                    }
+                    trigger += 10;
+                }
+                break;
+
+            case 'right':
+                while(trigger < 7200){
+                    for(let i = 0; i < gameObjects.length; i++) {
+                        if (trigger === gameObjects[i].leftBumper){
+                            let steps = Math.abs((start) - gameObjects[i].leftBumper)/10;
+                            return steps;
+                        }
+                    }
+                    trigger += 10;
+                }
+                break;
+
+            case 'up':
+                while(trigger < 7200){
+                    for(let i = 0; i < gameObjects.length; i++) {
+                        if (trigger === gameObjects[i].upBumper){
+                            let steps = Math.abs((start - 10) - gameObjects[i].upBumper)/10;
+                            return steps;
+                        }
+                    }
+                    trigger += 10;
+                }
+                break;
+
+            case 'down':
+                while(trigger < 7200){
+                    for(let i = 0; i < gameObjects.length; i++) {
+                        if (trigger === gameObjects[i].upBumper){
+                            let steps = Math.abs((start - 10) - gameObjects[i].upBumper)/10;
+                            return steps;
+                        }
+                    }
+                    trigger += 10;
+                }
+                break;
+        }
+    };
+
 
     return self;
 };
@@ -143,81 +194,55 @@ let Player = function(){
     self.hpMax = 5;
     self.score = 0;
     self.heightFromFloor = 0;
-    let leftBumper = {x:self.x - 15, y:self.y};
-    let rightBumper = {x:self.x + 15, y:self.y};
+    let leftBumper = {x:self.x - 20, y:self.y};
+    let rightBumper = {x:self.x + 20, y:self.y};
     let downBumper = {x:self.x, y:self.y + 40};
     let upBumper = {x:self.x, y:self.y - 40};
 
     let updateBumpers = function(){
-        leftBumper = self.x - 30;
-        rightBumper = self.x + 30;
+        leftBumper = self.x - 20;
+        rightBumper = self.x + 20;
         downBumper = self.y + 40;
         upBumper = self.y - 40;
     };
 
     self.moveLeft = function() {
         updateBumpers();
-        let oldX = self.x;
-        if (leftBumper === gameObjects[0].rightBumper) {
-            if ((upBumper >= gameObjects[0].downBumper) || (downBumper <= gameObjects[0].upBumper)) {
+        let steps = self.countSteps('left', leftBumper);
+        for(let i = 0; i < steps; i++) {
+            setInterval(function () {
                 self.x -= self.maxSpd;
-            } else {
-                self.x = oldX;
-            }
-        } else {
-            self.x -= self.maxSpd;
+            }, 40);
         }
     };
 
     self.moveRight = function(){
         updateBumpers();
-        let oldX = self.x;
-        let trigger = rightBumper;
-        while(trigger < 7200){
-            if(trigger === gameObjects[0]){
-
-            }
-            trigger += 10;
-        }
-        console.log(gameObjects[0].leftBumper);
-        if (rightBumper === gameObjects[0].leftBumper) {
-            if ((upBumper <= gameObjects[0].downBumper) && (downBumper >= gameObjects[0].upBumper)) {
-                self.x = oldX;
-            } else {
+        let steps = self.countSteps('right', rightBumper);
+        for(let i = 0; i < steps; i++) {
+            setInterval(function () {
                 self.x += self.maxSpd;
-            }
-        } else {
-            self.x += self.maxSpd;
+            }, 40);
         }
     };
+
     self.moveUP = function(){
         updateBumpers();
-        let oldY = self.y;
-        for(let i = 0; i < gameObjects.length; i++) {
-            if (upBumper === gameObjects[i].downBumper) {
-                if ((leftBumper >= gameObjects[i].rightBumper) || (rightBumper <= gameObjects[i].leftBumper)) {
-                    self.y -= self.maxSpd;
-                } else {
-                    self.y = oldY;
-                }
-            } else {
+        let steps = self.countSteps('up', upBumper);
+        for(let i = 0; i < steps; i++) {
+            setInterval(function () {
                 self.y -= self.maxSpd;
-            }
+            }, 40);
         }
     };
     self.moveDown = function(){
         updateBumpers();
-        let oldY = self.y;
-        for(let i = 0; i < gameObjects.length; i++) {
-            if (downBumper === gameObjects[i].upBumper) {
-                if ((leftBumper >= gameObjects[i].rightBumper) || (rightBumper <= gameObjects[i].leftBumper)) {
-                    self.y += self.maxSpd;
-                } else {
-                    self.y = oldY;
-                }
-            } else {
+        let steps = self.countSteps('down', downBumper);
+        for(let i = 0; i < steps; i++) {
+            setInterval(function () {
                 self.y += self.maxSpd;
-            }
+            }, 40);
+
         }
     };
     return self;
@@ -250,7 +275,6 @@ Maps = function(id,imgSrc,grid){
     self.draw = function(){
         let x = WIDTH/2 - player.x;
         ctx.drawImage(self.image,0,0,self.image.width,self.image.height,x,0,self.image.width,self.image.height);
-        console.log('width: ' + self.image.width);
     };
     return self;
 };
@@ -265,10 +289,11 @@ for(let i = 0 ; i < 25; i++){
 
 Maps.current = Maps('level_1', '../assets/level_backgrounds/Level_1.png', arrayCollision2D);
 
-setInterval(function () {
+setTimeout(function screenUpdate() {
     ctx.clearRect(0,0,WIDTH,HEIGHT);
     Maps.current.draw();
     player.update();
+    let tick = setTimeout(screenUpdate, 40);
 }, 40);
 
 document.onkeydown = function(event){
