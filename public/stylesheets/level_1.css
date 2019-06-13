@@ -179,3 +179,30 @@ body{
     width:100%;
     height:100%;
 }
+
+/*=================================*/
+/*           Tooltips              */
+/*=================================*/
+
+.tooltip {
+    position: fixed;
+    z-index: 100;
+    /* подсказка должна перекрывать другие элементы */
+
+    padding: 10px 20px;
+    /* красивости... */
+
+    border: 1px solid #b3c9ce;
+    border-radius: 4px;
+    text-align: center;
+    font: italic 16px/1.3 sans-serif;
+    color: #333;
+    background: #fff;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+}
+
+.tooltip strong{
+    font-family: "Times New Roman", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+}

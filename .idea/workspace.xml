@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f983ca4-8880-433b-b2ee-1be1f7d67979" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/public/assets/crystal_blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/crystal_colorful.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/crystal_green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/crystal_red-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/src/tooltips.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/level_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/level_1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/selectLevel.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/selectLevel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/src/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/level_backgrounds/Level_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/level_backgrounds/Level_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/src/gameSingle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/gameSingle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/authform.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/level_1.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/level_1.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,7 +30,7 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="204">
               <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -34,14 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/login.html">
+      <file leaf-file-name="selectLevel.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/selectLevel.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-              <folding>
-                <marker date="1559975044725" expanded="true" signature="1430:1980" ph="..." />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -49,8 +51,8 @@
       <file leaf-file-name="auth.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/auth.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="229" column="14" selection-start-line="229" selection-start-column="14" selection-end-line="229" selection-end-column="14" />
+            <state relative-caret-position="4301">
+              <caret line="253" selection-start-line="253" selection-start-column="2" selection-end-line="259" selection-end-column="3" />
               <folding>
                 <marker date="1559829058990" expanded="true" signature="4036:4524" ph="..." />
               </folding>
@@ -58,20 +60,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/auth.js">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="55" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
+            <state relative-caret-position="1020">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
+              <folding>
+                <marker date="1559975044725" expanded="true" signature="1430:1980" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="selectLevel.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/selectLevel.html">
+      <file leaf-file-name="gamePVP.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/src/gamePVP.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -79,31 +84,40 @@
       <file leaf-file-name="level_1.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/level_1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="187">
+              <caret line="11" column="24" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="24" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompilePlayerCode.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/CompilePlayerCode.js">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="level_1.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/level_1.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2669">
-              <caret line="157" column="23" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="157" selection-end-column="23" />
+            <state relative-caret-position="3349">
+              <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameSingle.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gameSingle.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/src/gameSingle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="224" column="16" lean-forward="true" selection-start-line="224" selection-start-column="16" selection-end-line="224" selection-end-column="16" />
+            <state relative-caret-position="17">
+              <caret line="347" column="59" selection-start-line="347" selection-start-column="59" selection-end-line="347" selection-end-column="59" />
+              <folding>
+                <marker date="1560362972069" expanded="true" signature="10110:10111" ph="..." />
+                <marker date="1560362972069" expanded="true" signature="12782:12908" ph="..." />
+                <marker date="1560362972069" expanded="true" signature="15272:15433" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tooltips.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/src/tooltips.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -113,9 +127,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -131,6 +145,8 @@
       <find>conso</find>
       <find>relative</find>
       <find>consol</find>
+      <find>console</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace>level_1</replace>
@@ -169,7 +185,6 @@
         <option value="$PROJECT_DIR$/public/src/index.js" />
         <option value="$PROJECT_DIR$/client/index.html" />
         <option value="$PROJECT_DIR$/public/src/cookieWorker.js" />
-        <option value="$PROJECT_DIR$/public/src/isAuthorized.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/index.css" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/public/src/game.js" />
@@ -180,16 +195,18 @@
         <option value="$PROJECT_DIR$/public/assets/test/test240x240.json" />
         <option value="$PROJECT_DIR$/public/assets/test/Level_1.json" />
         <option value="$PROJECT_DIR$/public/src/maps.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/level_1.css" />
         <option value="$PROJECT_DIR$/client/authform.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/authform.css" />
-        <option value="$PROJECT_DIR$/client/level_1.html" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/auth.css" />
-        <option value="$PROJECT_DIR$/public/src/gameSingle.js" />
         <option value="$PROJECT_DIR$/client/login.html" />
         <option value="$PROJECT_DIR$/public/src/auth.js" />
+        <option value="$PROJECT_DIR$/public/src/isAuthorized.js" />
         <option value="$PROJECT_DIR$/client/selectLevel.html" />
+        <option value="$PROJECT_DIR$/public/stylesheets/auth.css" />
+        <option value="$PROJECT_DIR$/client/level_1.html" />
+        <option value="$PROJECT_DIR$/public/src/tooltips.js" />
+        <option value="$PROJECT_DIR$/public/stylesheets/level_1.css" />
+        <option value="$PROJECT_DIR$/public/src/gameSingle.js" />
       </list>
     </option>
   </component>
@@ -208,10 +225,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="773" />
-    <option name="y" value="7" />
-    <option name="width" value="1104" />
-    <option name="height" value="1040" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="816" />
+    <option name="height" value="576" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -219,6 +236,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,7 +276,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -393,7 +410,11 @@
       <workItem from="1559749013884" duration="13424000" />
       <workItem from="1559814290495" duration="11614000" />
       <workItem from="1559932488193" duration="3927000" />
-      <workItem from="1559974682826" duration="488000" />
+      <workItem from="1559974682826" duration="8158000" />
+      <workItem from="1560154357744" duration="25609000" />
+      <workItem from="1560267438400" duration="9782000" />
+      <workItem from="1560326768750" duration="11335000" />
+      <workItem from="1560367982472" duration="477000" />
     </task>
     <task id="LOCAL-00001" summary="Start version">
       <created>1549973050026</created>
@@ -570,14 +591,42 @@
       <option name="project" value="LOCAL" />
       <updated>1559763328264</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="MVP for Troynina">
+      <created>1559975215670</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1559975215670</updated>
+    </task>
+    <task id="LOCAL-00027" summary="MVP for Troynina">
+      <created>1559975264581</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1559975264581</updated>
+    </task>
+    <task id="LOCAL-00028" summary="MVP for Troynina">
+      <created>1559975287578</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1559975287578</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Abzu">
+      <created>1559987701977</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1559987701978</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382743000" />
+    <option name="totallyTimeSpent" value="437616000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14166667" />
@@ -617,7 +666,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Start version" />
     <MESSAGE value="Reworked console, added test hero" />
     <MESSAGE value="Adde background to code area, added buttons to compile code" />
     <MESSAGE value="Added and configure NodeJS. L1" />
@@ -641,16 +689,16 @@
     <MESSAGE value="Added new background for Level_1, backgrounds for console and tips" />
     <MESSAGE value="Added new auth page (not completed)" />
     <MESSAGE value="Added new auth page (90% completed)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new auth page (90% completed)" />
+    <MESSAGE value="MVP for Troynina" />
+    <MESSAGE value="Abzu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Abzu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/assets/Execute.png" />
-    <entry file="file://$PROJECT_DIR$/public/assets/room1.png" />
     <entry file="file://$PROJECT_DIR$/public/assets/console.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -665,9 +713,6 @@
           <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/isAuthorized.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/man.png" />
     <entry file="file://$PROJECT_DIR$/public/assets/princessRoom_test.png" />
@@ -730,41 +775,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/level_PVP.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/gamePVP.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!block;n#Run#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/level_1.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2669">
-          <caret line="157" column="23" lean-forward="true" selection-start-line="153" selection-start-column="4" selection-end-line="157" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/registrate.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="74" column="15" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/authform.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -783,50 +797,17 @@
     <entry file="file://$PROJECT_DIR$/public/assets/auth_screen.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/CompilePlayerCode.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/level_1.html">
+    <entry file="file://$PROJECT_DIR$/client/level_PVP.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="170">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/gameSingle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="224" column="16" lean-forward="true" selection-start-line="224" selection-start-column="16" selection-end-line="224" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <marker date="1559975044725" expanded="true" signature="1430:1980" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/public/src/isAuthorized.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/auth.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="229" column="14" selection-start-line="229" selection-start-column="14" selection-end-line="229" selection-end-column="14" />
-          <folding>
-            <marker date="1559829058990" expanded="true" signature="4036:4524" ph="..." />
-          </folding>
+          <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -837,10 +818,87 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/CompilePlayerCode.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/authform.css" />
+    <entry file="file://$PROJECT_DIR$/public/assets/crystal_colorful.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/selectLevel.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+        <state relative-caret-position="204">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/auth.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4301">
+          <caret line="253" selection-start-line="253" selection-start-column="2" selection-end-line="259" selection-end-column="3" />
+          <folding>
+            <marker date="1559829058990" expanded="true" signature="4036:4524" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+          <folding>
+            <marker date="1559975044725" expanded="true" signature="1430:1980" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/tooltips.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/level_1.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3349">
+          <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/level_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/gamePVP.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/gameSingle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="347" column="59" selection-start-line="347" selection-start-column="59" selection-end-line="347" selection-end-column="59" />
+          <folding>
+            <marker date="1560362972069" expanded="true" signature="10110:10111" ph="..." />
+            <marker date="1560362972069" expanded="true" signature="12782:12908" ph="..." />
+            <marker date="1560362972069" expanded="true" signature="15272:15433" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
