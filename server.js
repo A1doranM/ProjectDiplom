@@ -17,7 +17,15 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client/selectLevel.html');
+    res.sendFile(__dirname + '/client/Welcome.html');
+});
+
+app.get('/aboutus', function (req, res) {
+    res.sendFile(__dirname + '/client/About_Us.html');
+});
+
+app.get('/howtoplay', function (req, res) {
+    res.sendFile(__dirname + '/client/How_to_play.html');
 });
 
 app.get('/level_PVP', function (req, res) {
@@ -30,8 +38,9 @@ app.get('/level_1', function (req, res) {
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
+app.use(express.static(__dirname + '/External Libraries'));
 
-serv.listen(2000);
+serv.listen(4000);
 
 let SOCKET_LIST = {};
 
