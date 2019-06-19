@@ -104,16 +104,15 @@ socket.on('update', function (data) {
         let pack = data.player[i];
         let p = Player.list[pack.id];
         if(p){
-            if(p){
-                if(pack.x !== undefined)
-                    p.x = pack.x;
-                if(pack.y !== undefined)
-                    p.y = pack.y;
-                if(pack.hp !== undefined)
-                    p.hp = pack.hp;
-                if(pack.score !== undefined)
-                    p.score = pack.score;
-            }
+            if(pack.x !== undefined)
+                p.x = pack.x;
+            if(pack.y !== undefined)
+                p.y = pack.y;
+            if(pack.hp !== undefined)
+                p.hp = pack.hp;
+            if(pack.score !== undefined)
+                p.score = pack.score;
+
         }
     }
 
@@ -121,12 +120,10 @@ socket.on('update', function (data) {
         let pack = data.bullet[i];
         let b = Bullet.list[data.bullet[i].id];
         if(b){
-            if(b){
-                if(pack.x !== undefined)
-                    b.x = pack.x;
-                if(pack.y !== undefined)
-                    b.y = pack.y;
-            }
+            if(pack.x !== undefined)
+                b.x = pack.x;
+            if(pack.y !== undefined)
+                b.y = pack.y;
         }
     }
 });

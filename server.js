@@ -335,6 +335,7 @@ io.sockets.on('connection', function(socket){
     });
 
     Player.onConnect(socket);
+    console.log("player connect");
 
     socket.on('disconnect',function(){
         delete SOCKET_LIST[socket.id];

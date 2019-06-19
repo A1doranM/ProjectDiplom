@@ -8,6 +8,8 @@ Img.player.src = '../assets/player.png';
 Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
 Img.crystal = {};
+Img.crystal['score'] = new Image();
+Img.crystal['score'].src = '../assets/crystal_score.png';
 Img.crystal['colorful'] = new Image();
 Img.crystal['colorful'].src = '../assets/crystal_colorful.png';
 Img.crystal['blue'] = new Image();
@@ -27,6 +29,7 @@ let HEIGHT = 750;
 
 let player;
 let gameObjects = [];
+let jumpObjects = [];
 let crystals = [];
 let doors = [];
 let tooltipText = '<p>Приветствуем тебя друг в удивительном мире троллей в котором ты сможешь открыть для себя что-то новое и не известное. </p>' +
@@ -170,7 +173,7 @@ let Player = function(){
     let self = Entity(750,1050,30,5,50,70,Img.player,10,1);
     self.number = "" + Math.floor(10 * Math.random());
     self.bulletAngle = 0;
-    self.maxSpd = 5;
+    self.maxSpd = 5 ;
     self.hpMax = 5;
     self.score = 0;
     let leftBumper = {x:self.x - self.maxSpd, y:self.y};
@@ -189,8 +192,7 @@ let Player = function(){
         for(let i=0; i < crystals.length; i++){
             if(((self.x <= crystals[i].rightBumper) && (self.x >= crystals[i].leftBumper))
                 && ((self.y >= crystals[i].upBumper) && (self.y <= crystals[i].downBumper))){
-                console.log(i);
-                return crystals[i];
+                return i;
             }
         }
         return false;
@@ -211,8 +213,17 @@ let Player = function(){
         for(let i=0; i < gameObjects.length; i++){
             if(((self.x <= gameObjects[i].rightBumper) && (self.x >= gameObjects[i].leftBumper))
                 && ((self.y >= gameObjects[i].upBumper) && (self.y <= gameObjects[i].downBumper))){
-                if(player.score = crystals.length)
                 return gameObjects[i];
+            }
+        }
+        return false;
+    };
+
+    let insideObjectJump = function(){
+        for(let i=0; i < jumpObjects.length; i++){
+            if(((self.x <= jumpObjects[i].rightBumper) && (self.x >= jumpObjects[i].leftBumper))
+                && ((self.y >= jumpObjects[i].upBumper) && (self.y <= jumpObjects[i].downBumper))){
+                    return jumpObjects[i];
             }
         }
         return false;
@@ -233,108 +244,214 @@ let Player = function(){
         return true;
     };
 
-    self.moveLeft = function(steps_custom) {
-        updateBumpers();
-        let oldX = self.x;
-        let steps;
+    self.moveLeft = function(a){
+        self.x -= self.maxSpd;
+    };
+    self.moveRight = function(a){
+        self.x += self.maxSpd;
+    };
+    self.moveUP = function(a){
+        self.y -= self.maxSpd;
+    };
+    self.moveDown = function(a){
+        self.y += self.maxSpd;
+    };
+    // self.moveLeft = function(steps_custom) {
+    //     updateBumpers();
+    //     let steps;
+    //
+    //     if(steps_custom !== 0){
+    //         steps = steps_custom;
+    //     } else {
+    //         steps = 1;
+    //     }
+    //
+    //
+    //     let timer = setInterval(function () {
+    //         steps--;
+    //         if(insideObjectHorizontal()) {
+    //             self.x -= self.maxSpd;
+    //             if (steps <= 0) {
+    //                 clearInterval(timer);
+    //             }
+    //         }
+    //         if (steps <= 0) {
+    //             clearInterval(timer);
+    //         }
+    //     }, 40);
+    //
+    // };
+    //
+    // self.moveRight = function(steps_custom){
+    //     updateBumpers();
+    //     let steps;
+    //     if(steps_custom !== 0){
+    //         steps = steps_custom;
+    //     } else {
+    //         steps = 1;
+    //     }
+    //
+    //     let timer = setInterval(function () {
+    //         steps--;
+    //         if(insideObjectHorizontal()) {
+    //             self.x += self.maxSpd;
+    //             if (steps <= 0) {
+    //                 clearInterval(timer);
+    //             }
+    //         }
+    //             if (steps <= 0) {
+    //                 clearInterval(timer);
+    //             }
+    //         }, 40);
+    // };
+    //
+    // self.moveUP = function(steps_custom){
+    //     updateBumpers();
+    //     let oldY = self.y;
+    //     let steps;
+    //     if(steps_custom !== 0){
+    //         steps = steps_custom;
+    //     } else {
+    //         steps = 1;
+    //     }
+    //     let timer = setInterval(function () {
+    //         steps --;
+    //         let object = insideObject();
+    //         if(object !== false) {
+    //             if(self.y === object.upBumper+10){
+    //                 clearInterval(timer);
+    //             }
+    //             self.y -= self.maxSpd;
+    //         } else {
+    //             clearInterval(timer);
+    //             self.y = oldY;
+    //         }
+    //         if(steps <= 0){clearInterval(timer);}
+    //     }, 40);
+    // };
+    //
+    // self.moveDown = function(steps_custom){
+    //     updateBumpers();
+    //     let oldY = self.y;
+    //     let steps;
+    //     if(steps_custom !== 0){
+    //         steps = steps_custom;
+    //     } else {
+    //         steps = 1;
+    //     }
+    //
+    //     let timer = setInterval(function () {
+    //         steps --;
+    //         let object = insideObject();
+    //         if(object !== false) {
+    //             if(self.y === object.downBumper+10){
+    //                 clearInterval(timer);
+    //             }
+    //             self.y += self.maxSpd;
+    //         } else {
+    //             clearInterval(timer);
+    //             self.y = oldY;
+    //         }
+    //         if(steps <= 0){clearInterval(timer);}
+    //     }, 40);
+    // };
 
-        if(steps_custom !== 0){
-            steps = steps_custom;
-        } else {
-            steps = 1;
-        }
-
-
-        let timer = setInterval(function () {
-            steps--;
-            self.x -= self.maxSpd;
-            if (steps <= 0){clearInterval(timer);}
-        }, 40);
-
+    self.jumpUP = function(jump_height){
+      if(jump_height <= 50){
+          let heightUP = jump_height;
+          let heightDown = jump_height;
+          let timerJump = setInterval(function () {
+              if (heightUP >= 0) {
+                  heightUP--;
+                  self.y -= self.maxSpd;
+              } else {
+                  if (insideObjectJump() !== false) {
+                      clearInterval(timerJump);
+                  }
+                  heightDown--;
+                  self.y += self.maxSpd;
+                  if (heightDown <= 0) {
+                      clearInterval(timerJump)
+                  }
+              }
+          }, 40);
+      }
     };
 
-    self.moveRight = function(steps_custom){
-        updateBumpers();
-        let steps;
-        if(steps_custom !== 0){
-            steps = steps_custom;
-        } else {
-            steps = 1;
-        }
-
-        let timer = setInterval(function () {
-            steps--;
-            if(insideObjectHorizontal()) {
-                self.x += self.maxSpd;
-                if (steps <= 0) {
-                    clearInterval(timer);
+    self.jumpRight = function(jump_height, steps){
+        if(jump_height <= 50 && steps <= 50) {
+            let heightUP = jump_height;
+            let heightDown = jump_height;
+            let stepsUP = Math.trunc(steps / 2);
+            let stepsDown = Math.trunc(steps / 2);
+            let timerJumpRight = setInterval(function () {
+                if (heightUP > 0) {
+                    heightUP--;
+                    self.y -= self.maxSpd;
                 }
-            }
-                if (steps <= 0) {
-                    clearInterval(timer);
+                if (stepsUP >= 0) {
+                    stepsUP--;
+                    self.x += self.maxSpd;
+                }
+
+                if (heightUP <= 0 && stepsUP <= 0) {
+                    if (insideObjectJump() !== false) {
+                        clearInterval(timerJumpRight);
+                    }
+                    if (self.y <= 1050) {
+                        self.y += self.maxSpd;
+                    } else {
+                        clearInterval(timerJumpRight);
+                    }
+                    if (stepsDown >= 0) {
+                        stepsDown--;
+                        self.x += self.maxSpd;
+                    }
                 }
             }, 40);
+        }
     };
 
-    self.moveUP = function(steps_custom){
-        updateBumpers();
-        let oldY = self.y;
-        let steps;
-        if(steps_custom !== 0){
-            steps = steps_custom;
-        } else {
-            steps = 1;
-        }
-        let timer = setInterval(function () {
-            steps --;
-            let object = insideObject();
-            if(object !== false) {
-                if(self.y === object.upBumper+10){
-                    clearInterval(timer);
+    self.jumpLeft = function(jump_height, steps){
+        if(jump_height <= 50 && steps <= 50) {
+            let heightUP = jump_height;
+            let heightDown = jump_height;
+            let stepsUP = Math.trunc(steps / 2);
+            let stepsDown = Math.trunc(steps / 2);
+            let timerJumpRight = setInterval(function () {
+                console.log(heightUP, stepsUP);
+                if (heightUP > 0) {
+                    heightUP--;
+                    self.y -= self.maxSpd;
                 }
-                self.y -= self.maxSpd;
-            } else {
-                clearInterval(timer);
-                self.y = oldY;
-            }
-            if(steps <= 0){clearInterval(timer);}
-        }, 40);
-    };
-
-    self.moveDown = function(steps_custom){
-        updateBumpers();
-        let oldY = self.y;
-        let steps;
-        if(steps_custom !== 0){
-            steps = steps_custom;
-        } else {
-            steps = 1;
-        }
-
-        let timer = setInterval(function () {
-            steps --;
-            let object = insideObject();
-            if(object !== false) {
-                if(self.y === object.downBumper-10){
-                    clearInterval(timer);
+                if (stepsUP >= 0) {
+                    stepsUP--;
+                    self.x -= self.maxSpd;
                 }
-                self.y += self.maxSpd;
-            } else {
-                clearInterval(timer);
-                self.y = oldY;
-            }
-            if(steps <= 0){clearInterval(timer);}
-        }, 40);
+
+                if (heightUP <= 0 && stepsUP <= 0) {
+                    if (insideObjectJump() !== false) {
+                        clearInterval(timerJumpRight);
+                    }
+                    if (self.y <= 1050) {
+                        self.y += self.maxSpd;
+                    } else {
+                        clearInterval(timerJumpRight);
+                    }
+                    if (stepsDown >= 0) {
+                        stepsDown--;
+                        self.x -= self.maxSpd;
+                    }
+                }
+            }, 40);
+        }
     };
 
     self.takeCrystal = function(){
         let cryst = nearCrystal();
         if(cryst !== false){
-            console.log("cryst: ", cryst.x, cryst.y);
-            console.log("cryst: ", cryst.rightBumper, cryst.leftBumper);
-            console.log("cryst: ", cryst.upBumper, cryst.downBumper);
             self.score++;
-            console.log(self.score);
+            crystals.splice(cryst, 1);
         } else {
             console.log("not in crystal");
         }
@@ -344,6 +461,11 @@ let Player = function(){
         let door = endLevel();
         if(door !== false){
             showTooltip("CONGRATULATION", toolTipElem);
+            // document.getElementById('btn-execute').addEventListener('click', function () {
+            //     let script = document.getElementById("code").value;
+            //
+            //     let result = eval(script);
+            // });
         } else {
             showTooltip('This is not the door', toolTipElem);
         }
@@ -354,7 +476,7 @@ let Player = function(){
 
 player = new Player();
 
-let Door = function(x, y, width, height, relativeX, relativeY){
+let ObjectParent = function (x, y, width, height, relativeX, relativeY) {
     let self = {
         x:x,
         y:y,
@@ -371,31 +493,47 @@ let Door = function(x, y, width, height, relativeX, relativeY){
         ctx.strokeRect(self.x - player.x + relativeX, relativeY, self.width, self.height);
     };
 
+    return self;
+};
+
+let Door = function(x, y, width, height, relativeX, relativeY){
+    let self = new ObjectParent(x, y, width, height, relativeX, relativeY);
     return self;
 };
 
 doors[0] = new Door(7130, 690, 460, 710, 400, 30);
 
-let GameObject = function(x, y, width, height, relativeX, relativeY){
-    let self = {
-        x:x,
-        y:y,
-        height:height,
-        width:width,
-        rightBumper: Math.ceil((x + width/2)/10)*10,
-        leftBumper: Math.ceil((x - width/2)/10)*10,
-        upBumper: Math.ceil((y - height/2)/10)*10,
-        downBumper: Math.ceil((y + height/2)/10)*10,
-    };
-
-    self.draw = function (){
-        ctx.fillStyle = "green";
-        ctx.strokeRect(self.x - player.x + relativeX, relativeY, self.width, self.height);
-    };
-
+let JumpObject = function(x, y, width, height, relativeX, relativeY){
+    let self = ObjectParent(x, y, width, height, relativeX, relativeY);
     return self;
 };
 
+
+//waredrobe 3375 810
+//3345 705
+//3495 705
+//3630 705
+jumpObjects[0] = new JumpObject(1330, 890, 350, 50, 450, 510);
+jumpObjects[1] = new JumpObject(1830, 870, 460, 50, 400, 490);
+jumpObjects[2] = new JumpObject(3000, 880, 350, 50, 450, 510);
+jumpObjects[3] = new JumpObject(3220, 820, 50, 50, 580, 450);
+jumpObjects[4] = new JumpObject(3495, 605, 430, 20, 410, 340);
+jumpObjects[5] = new JumpObject(3495, 705, 430, 20, 410, 340);
+jumpObjects[6] = new JumpObject(3495, 805, 430, 20, 410, 340);
+
+let GameObject = function(x, y, width, height, relativeX, relativeY){
+    let self = ObjectParent(x, y, width, height, relativeX, relativeY);
+    return self;
+};
+
+gameObjects[0] = new GameObject(1310, 970, 460, 330, 420, 410);
+gameObjects[1] = new GameObject(1830, 970, 460, 240, 400, 500);
+gameObjects[2] = new GameObject(2410, 690, 660, 710, 300, 30);
+gameObjects[3] = new GameObject(2990, 970, 460, 330, 400, 410);
+gameObjects[4] = new GameObject(3860, 780, 1220, 680, 10, 100);
+gameObjects[5] = new  GameObject(5540, 970, 880, 240, 170, 500);
+
+//chest 750x1050
 //sofa 1330x970
 //first crystal 1940x220
 //first glass table 1830x1000
@@ -411,25 +549,10 @@ let GameObject = function(x, y, width, height, relativeX, relativeY){
 //last crystal 6930x1030
 //last door 7130x1030
 
-gameObjects[0] = new GameObject(1310, 970, 460, 330, 420, 410);
-gameObjects[1] = new GameObject(1830, 970, 460, 240, 400, 500);
-gameObjects[2] = new GameObject(2410, 690, 660, 710, 300, 30);
-gameObjects[3] = new GameObject(2990, 970, 460, 330, 400, 410);
-gameObjects[4] = new GameObject(3860, 780, 1220, 680, 10, 100);
-gameObjects[5] = new  GameObject(5540, 970, 880, 240, 170, 500);
 
 let Crystal = function(x, y, width, height, relativeX, relativeY, img){
-    let self = {
-        img:img,
-        x:x,
-        y:y,
-        height:height,
-        width:width,
-        rightBumper: Math.ceil((x + width/2)/10)*10,
-        leftBumper: Math.ceil((x - width/2)/10)*10,
-        upBumper: Math.ceil((y - height/2)/10)*10,
-        downBumper: Math.ceil((y + height/2)/10)*10,
-    };
+    let self = new ObjectParent(x, y, width, height, relativeX, relativeY);
+    self.img = img;
 
     self.draw = function (){
         ctx.drawImage(self.img, self.x - player.x + relativeX, relativeY, self.img.width, self.img.height);
@@ -490,6 +613,9 @@ setTimeout(function screenUpdate() {
     for(let i=0; i < gameObjects.length; i++){
         gameObjects[i].draw();
     }
+    for(let i=0; i < jumpObjects.length; i++){
+        jumpObjects[i].draw();
+    }
     for(let i=0; i < crystals.length; i++){
         crystals[i].draw();
     }
@@ -497,8 +623,32 @@ setTimeout(function screenUpdate() {
         doors[i].draw();
     }
     player.update();
+    drawScore();
     let tick = setTimeout(screenUpdate, 40);
 }, 40);
+
+let lastScore = null;
+let drawScore = function () {
+    if(lastScore === Player.score)
+        return;
+    ctx.fillStyle = 'black';
+    ctx.fillText(player.score, 30, 30);
+    ctx.drawImage(Img.crystal['score'], 50, 0, Img.crystal['score'].width, Img.crystal['score'].height);
+};
+
+let isShowed = 1;
+let firstTooltip = setTimeout(function show() {
+    if(isShowed !== 0) {
+        showingTooltip = showTooltip(tooltipText, toolTipElem);
+        isShowed = 0;
+        console.log('showing tooltip');
+    } else {
+        clearTimeout(firstTooltip);
+    }
+    firstTooltip = setTimeout(function () {
+        document.body.removeChild(showingTooltip);
+    }, 5000);
+}, 30);
 
 document.onkeydown = function(event){
     if(event.keyCode === 68)    //d
@@ -512,8 +662,7 @@ document.onkeydown = function(event){
 };
 
 document.getElementById('game').onclick = function(e) {
-    //showingTooltip = showTooltip(tooltipText, toolTipElem);
-    let take = player.takeCrystal();
+    //let take = player.jump(20, 10, 'left');
+    //let take = player.jump(20, 10, 'right');
     console.log("player: ", player.x, player.y);
-
 };

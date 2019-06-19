@@ -1,16 +1,16 @@
 function showTooltip(text, elem) {
-    var tooltipElem = document.createElement('div');
+    let tooltipElem = document.createElement('div');
     tooltipElem.className = 'tooltip';
     tooltipElem.innerHTML = text;
     document.body.appendChild(tooltipElem);
 
-    var coords = elem.getBoundingClientRect();
+    let coords = elem.getBoundingClientRect();
 
-    var left = coords.left + (elem.offsetWidth - tooltipElem.offsetWidth) / 2;
+    let left = coords.left + (elem.offsetWidth - tooltipElem.offsetWidth) / 2;
     if (left < 0) left = 0; // не вылезать за левую границу экрана
 
     // не вылезать за верхнюю границу окна
-    var top = coords.top - tooltipElem.offsetHeight - 5;
+    let top = coords.top - tooltipElem.offsetHeight - 5;
     if (top < 0) {
         top = coords.top + elem.offsetHeight + 5;
     }
