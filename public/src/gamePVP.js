@@ -10,17 +10,17 @@ Img.bullet.src = '../assets/bullet.png';
 
 Img.map = {};
 Img.map['level_1'] = new Image();
-Img.map['level_1'].src = '../assets/map.png';
+Img.map['level_1'].src = '../assets/level_backgrounds/map.png';
 Img.map['level_1'] = new Image();
-Img.map['level_1'].src = '../assets/map2.png';
+Img.map['level_1'].src = '../assets/level_backgrounds/map.png';
 
 let socket = io();
 
-let WIDTH = 750;
+let WIDTH = 1170;
 let HEIGHT = 750;
 
 //initial package
-let Player = function (initPack) {
+let Player = function(initPack){
     let self = {};
     self.id = initPack.id;
     self.number = initPack.number;
@@ -32,30 +32,33 @@ let Player = function (initPack) {
     self.map = initPack.map;
 
     self.draw = function(){
-        if(Player.list[selfId].map !== self.map){
+        if(Player.list[selfId].map !== self.map)
             return;
-        }
         let x = self.x - Player.list[selfId].x + WIDTH/2;
         let y = self.y - Player.list[selfId].y + HEIGHT/2;
 
         let hpWidth = 30 * self.hp / self.hpMax;
         ctx.fillStyle = 'red';
-        ctx.fillRect(x - hpWidth/2, y - 40, hpWidth, 4);
+        ctx.fillRect(x - hpWidth/2,y - 40,hpWidth,4);
 
         let width = Img.player.width*2;
         let height = Img.player.height*2;
 
-        ctx.drawImage(Img.player,
-            0, 0, Img.player.width, Img.player.height,
-            x - width/2, y - height/2, width, height);
 
-        //ctx.fillText(self.score, self.x, self.y-60);
-    };
+        ctx.drawImage(Img.player,
+            0,0,Img.player.width,Img.player.height,
+            x-width/2,y-height/2,width,height);
+
+        //ctx.fillText(self.score,self.x,self.y-60);
+    }
 
     Player.list[self.id] = self;
+
+
     return self;
-};
+}
 Player.list = {};
+
 
 let Bullet = function(initPack){
     let self = {};
@@ -65,42 +68,41 @@ let Bullet = function(initPack){
     self.map = initPack.map;
 
     self.draw = function(){
-        if(Player.list[selfId].map !== self.map){
+        if(Player.list[selfId].map !== self.map)
             return;
-        }
         let width = Img.bullet.width/2;
-        let height = Img.bullet.width/2;
+        let height = Img.bullet.height/2;
 
         let x = self.x - Player.list[selfId].x + WIDTH/2;
         let y = self.y - Player.list[selfId].y + HEIGHT/2;
 
         ctx.drawImage(Img.bullet,
-            0, 0, Img.bullet.width, Img.bullet.height,
-            x - width/2, y - height/2, width, height);
-    };
+            0,0,Img.bullet.width,Img.bullet.height,
+            x-width/2,y-height/2,width,height);
+    }
 
     Bullet.list[self.id] = self;
     return self;
-};
+}
 Bullet.list = {};
 
 let selfId = null;
 
-socket.on('init', function (data) {
-    if(data.selfId){
+socket.on('init',function(data){
+    if(data.selfId)
         selfId = data.selfId;
-    }
-    for(let i = 0; i < data.player.length; i++){
+    //{ player : [{id:123,number:'1',x:0,y:0},{id:1,number:'2',x:0,y:0}], bullet: []}
+    for(let i = 0 ; i < data.player.length; i++){
         new Player(data.player[i]);
     }
-    for(let i = 0; i < data.bullet.length; i++){
+    for(let i = 0 ; i < data.bullet.length; i++){
         new Bullet(data.bullet[i]);
     }
 });
 
-//update package
-socket.on('update', function (data) {
-    for(let i = 0; i < data.player.length; i++){
+socket.on('update',function(data){
+    //{ player : [{id:123,x:0,y:0},{id:1,x:0,y:0}], bullet: []}
+    for(let i = 0 ; i < data.player.length; i++){
         let pack = data.player[i];
         let p = Player.list[pack.id];
         if(p){
@@ -112,11 +114,9 @@ socket.on('update', function (data) {
                 p.hp = pack.hp;
             if(pack.score !== undefined)
                 p.score = pack.score;
-
         }
     }
-
-    for(let i = 0; i < data.bullet.length; i++){
+    for(let i = 0 ; i < data.bullet.length; i++){
         let pack = data.bullet[i];
         let b = Bullet.list[data.bullet[i].id];
         if(b){
@@ -128,46 +128,40 @@ socket.on('update', function (data) {
     }
 });
 
-//remove package
-socket.on('remove', function (data) {
-    for(let i = 0; i < data.player.length; i++){
+socket.on('remove',function(data){
+    //{player:[12323],bullet:[12323,123123]}
+    for(let i = 0 ; i < data.player.length; i++){
         delete Player.list[data.player[i]];
     }
-    for(let i = 0; i < data.bullet.length; i++){
+    for(let i = 0 ; i < data.bullet.length; i++){
         delete Bullet.list[data.bullet[i]];
     }
 });
-///////////////////////
 
-setInterval(function () {
-    if(!selfId){
+setInterval(function(){
+    if(!selfId)
         return;
-    }
-    ctx.clearRect(0,0,750,750);
+    ctx.clearRect(0,0,500,500);
     drawMap();
     drawScore();
-    for(let i in Player.list){
+    for(let i in Player.list)
         Player.list[i].draw();
-    }
-    for(let i in Bullet.list){
+    for(let i in Bullet.list)
         Bullet.list[i].draw();
-    }
-}, 40);
+},40);
 
-let drawMap = function () {
+let drawMap = function(){
     let player = Player.list[selfId];
     let x = WIDTH/2 - player.x;
     let y = HEIGHT/2 - player.y;
-    ctx.drawImage(Img.map[player.map], x, y);
-};
+    ctx.drawImage(Img.map[player.map],x,y);
+}
 
-let lastScore = null;
-let drawScore = function () {
-    if(lastScore === Player.list[selfId].score)
-        return;
+let drawScore = function(){
     ctx.fillStyle = 'white';
-    ctx.fillText(Player.list[selfId].score, 0, 30);
-};
+    ctx.fillText(Player.list[selfId].score,0,30);
+}
+
 
 function Run () {
     let script = document.getElementById("code").value;

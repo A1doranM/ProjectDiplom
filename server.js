@@ -28,7 +28,7 @@ app.get('/howtoplay', function (req, res) {
     res.sendFile(__dirname + '/client/How_to_play.html');
 });
 
-app.get('/level_PVP', function (req, res) {
+app.get('/PVP', function (req, res) {
     res.sendFile(__dirname + '/client/level_PVP.html');
 });
 
@@ -46,8 +46,8 @@ let SOCKET_LIST = {};
 
 let Entity = function(param){
     let self = {
-        x:250,
-        y:250,
+        x:550,
+        y:550,
         spdX:0,
         spdY:0,
         id:"",
@@ -96,9 +96,6 @@ let Player = function(param){
         super_update();
 
         if(self.pressingAttack){
-            for(let i = -3; i < 3; i++){
-                self.shootBullet(i * 10 + self.angle);
-            }
             self.shootBullet(self.bulletAngle);
         }
     };

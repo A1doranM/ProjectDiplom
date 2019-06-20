@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/stylesheets/level_PVP.css">
+    <link rel="stylesheet" href="/stylesheets/level_1.css">
     <script src="socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
 <div id="main-screen">
     <div id="canvas-wrapper">
-        <canvas id="game" width="750" height="750">
+        <canvas id="game" width="1170" height="750">
 
         </canvas>
     </div>
 
-    <div id="tips">
-
+    <div id="code-area">
+        <textarea id="code"></textarea>
+        <div id="btn-execute" class="controls" onclick="Run()">EXECUTE</div>
     </div>
 
-    <div id="code-area">
-        <textarea id="code">/*Write you code here*/</textarea>
-        <img id="run" class="controls" onclick="Run()" src="/assets/Execute.png"/>
-        <img id="stop" class="controls" onclick="Run()" src="/assets/Execute.png"/>
+    <div id="tips">
+        <div id="label_tips_task" onclick="Run()">TASK AND TIPS</div>
     </div>
 </div>
 
 </body>
+<script src="/src/maps.js"></script>
+<script src="/src/tooltips.js"></script>
+<script src="/src/CompilePlayerCode.js"></script>
 <script src="/src/gamePVP.js"></script>
 </html>

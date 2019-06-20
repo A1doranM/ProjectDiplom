@@ -15,10 +15,10 @@ function showTooltip(text, elem) {
         top = coords.top + elem.offsetHeight + 5;
     }
 
-    tooltipElem.style.width = 600 + 'px';
+    tooltipElem.style.width = 900 + 'px';
     tooltipElem.style.height = 'auto';
-    tooltipElem.style.left = 50 + 'px';
-    tooltipElem.style.top = 50 + 'px';
+    tooltipElem.style.left = 25 + '%';
+    tooltipElem.style.top = 25 + '%';
 
     tooltipElem.addEventListener('click', function () {
         document.body.removeChild(showingTooltip);

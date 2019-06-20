@@ -4,9 +4,9 @@ ctx.font = '30px Arial';
 //game
 let Img = {};
 Img.player = new Image();
-Img.player.src = '../assets/player.png';
+Img.player.src = '../assets/monster.png';
 Img.bullet = new Image();
-Img.bullet.src = '../assets/bullet.png';
+Img.bullet.src = '../assets/monster.png';
 Img.crystal = {};
 Img.crystal['score'] = new Image();
 Img.crystal['score'].src = '../assets/crystal_score.png';
@@ -24,7 +24,7 @@ Img.map.src = '../assets/level_backgrounds/Level_1.png';
 let socket = io();
 
 let TILE_SIZE = 30;
-let WIDTH = 1250;
+let WIDTH = 1000;
 let HEIGHT = 750;
 
 let player;
@@ -35,7 +35,7 @@ let doors = [];
 let tooltipText = '<p>Приветствуем тебя друг в удивительном мире троллей в котором ты сможешь открыть для себя что-то новое и не известное. </p>' +
     '           <p>Тема этого уровня переменные. И так в языке JavaScript есть переменные следующих типов. <strong>1 - Целочисленные, 2 - Числа с плавающей запятой, 3 - Строки</strong> </p>' +
     '           <p>Переменные используются для храниния данных которые ты используешь во время работы программы, после ее остановки данные из переменных теряются </p>' +
-    '           <p>В JavaScript можно объявлять переменные для хранения данных. Это делается при помощи <strong>var</strong>, или в более новом стандарте при помощи <strong>let</strong></p>' +
+    '           <p>В JavaScript можно объявлять переменные для хранения данных. Это делается при помощи <strong>let</strong>, или в более новом стандарте при помощи <strong>let</strong></p>' +
     '           <p>Технически, можно просто записать значение и без объявления переменной, однако по ряду причин это не рекомендуется.</p>' +
     '           <p>Вместе с объявлением можно сразу присвоить значение. Например: <strong>let a = 10; | let s = 10.5; | let f = "Hello";</strong> этот пример иллюстрирует 3 типа переменных </p>' +
     '           <p>В отличии от таких языков как Java и C++ тебе не недо конкретно указывать тип переменной, интерпритатор сделает это за тебя сам </p>';
@@ -86,7 +86,7 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 
         ctx.drawImage(self.img,
             0,0,self.img.width,self.img.height,
-            x,y,self.width,self.height
+            x,y,self.width*2,self.height*2
         );
         ctx.restore();
     };
@@ -563,10 +563,10 @@ let Crystal = function(x, y, width, height, relativeX, relativeY, img){
     return self;
 };
 
-crystals[0] = new Crystal(1940, 800, 100, 130, 590, 380, Img.crystal['colorful']);
-crystals[1] = new Crystal(3320, 450, 100, 100, 600, 70, Img.crystal['blue']);
-crystals[2] = new Crystal(4370, 450, 100, 100, 600, 70, Img.crystal['green']);
-crystals[3] = new Crystal(6900, 900, 200, 350, 570, 470, Img.crystal['red-black']);
+crystals[0] = new Crystal(1940, 800, 100, 130, 490, 380, Img.crystal['colorful']);
+crystals[1] = new Crystal(3320, 450, 100, 100, 510, 70, Img.crystal['blue']);
+crystals[2] = new Crystal(4370, 450, 100, 100, 510, 70, Img.crystal['green']);
+crystals[3] = new Crystal(6900, 900, 200, 350, 480, 470, Img.crystal['red-black']);
 
 Maps = function(id,imgSrc,grid){
     let self = {
@@ -610,18 +610,18 @@ Maps.current = Maps('level_1', Img.map.src, arrayCollision2D);
 setTimeout(function screenUpdate() {
     ctx.clearRect(0,0,WIDTH,HEIGHT);
     Maps.current.draw();
-    for(let i=0; i < gameObjects.length; i++){
-        gameObjects[i].draw();
-    }
-    for(let i=0; i < jumpObjects.length; i++){
-        jumpObjects[i].draw();
-    }
+    // for(let i=0; i < gameObjects.length; i++){
+    //     gameObjects[i].draw();
+    // }
+    // for(let i=0; i < jumpObjects.length; i++){
+    //     jumpObjects[i].draw();
+    // }
     for(let i=0; i < crystals.length; i++){
         crystals[i].draw();
     }
-    for(let i=0; i < doors.length; i++){
-        doors[i].draw();
-    }
+    // for(let i=0; i < doors.length; i++){
+    //     doors[i].draw();
+    // }
     player.update();
     drawScore();
     let tick = setTimeout(screenUpdate, 40);
@@ -632,8 +632,8 @@ let drawScore = function () {
     if(lastScore === Player.score)
         return;
     ctx.fillStyle = 'black';
-    ctx.fillText(player.score, 30, 30);
-    ctx.drawImage(Img.crystal['score'], 50, 0, Img.crystal['score'].width, Img.crystal['score'].height);
+    ctx.fillText(player.score, 30, 720);
+    ctx.drawImage(Img.crystal['score'], 50, 690, Img.crystal['score'].width, Img.crystal['score'].height);
 };
 
 let isShowed = 1;
