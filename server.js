@@ -350,21 +350,21 @@ io.sockets.on('connection', function(socket){
     SOCKET_LIST[socket.id] = socket;
 
     socket.on('signIn',function(data){
-        DBConnection.query('select users.login from diplom.users where users.password=? and users.email=?', [data.password, data.email], function (err, result) {
-            if(result[0] === undefined) {
-                socket.emit('SignInResponse', {success: false});
-            } else {
-                socket.emit('SignInResponse', {success: true});
-            }
-        });
+        // DBConnection.query('select users.login from diplom.users where users.password=? and users.email=?', [data.password, data.email], function (err, result) {
+        //     if(result[0] === undefined) {
+        //         socket.emit('SignInResponse', {success: false});
+        //     } else {
+        //         socket.emit('SignInResponse', {success: true});
+        //     }
+        // });
         socket.emit('SignInResponse', {success: true});
     });
 
     socket.on('signUp',function(data){
-        DBConnection.query('insert into diplom.users (login, email, password) values (?, ?, ?)', [data.login, data.email, data.password], function (err, result) {
-            if(err) throw err;
-            socket.emit('SignUnResponse', {success: true});
-        });
+        // DBConnection.query('insert into diplom.users (login, email, password) values (?, ?, ?)', [data.login, data.email, data.password], function (err, result) {
+        //     if(err) throw err;
+        //     socket.emit('SignUnResponse', {success: true});
+        // });
         socket.emit('SignUpResponse', {success: true});
     });
 
