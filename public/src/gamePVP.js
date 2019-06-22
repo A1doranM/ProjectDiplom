@@ -141,7 +141,7 @@ socket.on('remove',function(data){
 setInterval(function(){
     if(!selfId)
         return;
-    ctx.clearRect(0,0,500,500);
+    ctx.clearRect(0,0,750,1170);
     drawMap();
     drawScore();
     for(let i in Player.list)
@@ -155,12 +155,12 @@ let drawMap = function(){
     let x = WIDTH/2 - player.x;
     let y = HEIGHT/2 - player.y;
     ctx.drawImage(Img.map[player.map],x,y);
-}
+};
 
 let drawScore = function(){
     ctx.fillStyle = 'white';
     ctx.fillText(Player.list[selfId].score,0,30);
-}
+};
 
 
 function Run () {

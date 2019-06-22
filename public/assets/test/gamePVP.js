@@ -112,7 +112,9 @@ socket.on('update', function (data) {
                 p.hp = pack.hp;
             if(pack.score !== undefined)
                 p.score = pack.score;
-
+            // if(pack.win !== undefined){
+            //     if(pack.win)
+            // }
         }
     }
 

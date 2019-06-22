@@ -46,33 +46,34 @@ let SOCKET_LIST = {};
 
 let Entity = function(param){
     let self = {
-        x:550,
-        y:550,
+        x:750,
+        y:500,
         spdX:0,
         spdY:0,
         id:"",
-        map: 'level_1',
+        map:'level_1',
     };
     if(param){
-        if(param.x) self.x = param.x;
-        if(param.y) self.x = param.x;
-        if(param.map) self.map = param.map;
-        if(param.id) self.id = param.id;
+        if(param.x)
+            self.x = param.x;
+        if(param.y)
+            self.y = param.y;
+        if(param.map)
+            self.map = param.map;
+        if(param.id)
+            self.id = param.id;
     }
 
     self.update = function(){
         self.updatePosition();
     };
-
     self.updatePosition = function(){
         self.x += self.spdX;
         self.y += self.spdY;
     };
-
-    self.getDistance = function (pt) {
-        return Math.sqrt(Math.pow(self.x - pt.x, 2) + Math.pow(self.y - pt.y, 2));
+    self.getDistance = function(pt){
+        return Math.sqrt(Math.pow(self.x-pt.x,2) + Math.pow(self.y-pt.y,2));
     };
-
     return self;
 };
 
@@ -81,18 +82,20 @@ let Player = function(param){
     self.number = "" + Math.floor(10 * Math.random());
     self.pressingRight = false;
     self.pressingLeft = false;
-    self.pressingUP = false;
+    self.pressingUp = false;
     self.pressingDown = false;
     self.pressingAttack = false;
     self.bulletAngle = 0;
     self.maxSpd = 10;
-    self.hp = 3;
-    self.hpMax = 5;
+    self.hp = 10;
+    self.hpMax = 10;
     self.score = 0;
+    self.win = false;
 
     let super_update = self.update;
     self.update = function(){
         self.updateSpd();
+
         super_update();
 
         if(self.pressingAttack){
@@ -111,29 +114,23 @@ let Player = function(param){
     };
 
     self.updateSpd = function(){
-        if(self.pressingRight) {
+        if(self.pressingRight)
             self.spdX = self.maxSpd;
-        }
-        else if(self.pressingLeft) {
+        else if(self.pressingLeft)
             self.spdX = -self.maxSpd;
-        }
-        else {
+        else
             self.spdX = 0;
-        }
 
-        if(self.pressingUP) {
+        if(self.pressingUp)
             self.spdY = -self.maxSpd;
-        }
-        else if(self.pressingDown) {
+        else if(self.pressingDown)
             self.spdY = self.maxSpd;
-        }
-        else {
+        else
             self.spdY = 0;
-        }
     };
 
     self.getInitPackage = function(){
-        return{
+        return {
             id:self.id,
             x:self.x,
             y:self.y,
@@ -142,26 +139,19 @@ let Player = function(param){
             hpMax:self.hpMax,
             score:self.score,
             map:self.map,
-        };
+            win:self.win,
+        }
     };
 
     self.getUpdatePackage = function(){
-        return{
+        return {
             id:self.id,
             x:self.x,
             y:self.y,
             hp:self.hp,
             score:self.score,
-        };
-    };
-
-    self.getRemovePackage = function(){
-        return{
-            id:self.id,
-            x:self.x,
-            y:self.y,
-            number:self.number,
-        };
+            win:self.win,
+        }
     };
 
     Player.list[self.id] = self;
@@ -171,12 +161,10 @@ let Player = function(param){
 };
 
 Player.list = {};
-
-Player.onConnect = function(socket) {
+Player.onConnect = function(socket){
     let map = 'level_1';
-    if(Math.random() < 0.5){
+    if(Math.random() < 0.5)
         map = 'level_1';
-    }
     let player = Player({
         id:socket.id,
         map:map,
@@ -190,7 +178,7 @@ Player.onConnect = function(socket) {
                 player.pressingRight = data.state;
                 break;
             case 'UP':
-                player.pressingUP = data.state;
+                player.pressingUp = data.state;
                 break;
             case 'down':
                 player.pressingDown = data.state;
@@ -201,18 +189,18 @@ Player.onConnect = function(socket) {
         }
     });
 
-    socket.emit('init', {
+
+    socket.emit('init',{
         selfId:socket.id,
-        player:Player.getAllInitPacks(),
-        bullet:Bullet.getAllInitPacks(),
-    });
+        player:Player.getAllInitPack(),
+        bullet:Bullet.getAllInitPack(),
+    })
 };
 
-Player.getAllInitPacks = function(){
+Player.getAllInitPack = function(){
     let players = [];
-    for(let i in Player.list){
+    for(let i in Player.list)
         players.push(Player.list[i].getInitPackage());
-    }
     return players;
 };
 
@@ -237,10 +225,10 @@ let Bullet = function(param){
     self.angle = param.angle;
     self.spdX = Math.cos(param.angle/180*Math.PI) * 10;
     self.spdY = Math.sin(param.angle/180*Math.PI) * 10;
-    self.timer = 0;
     self.parent = param.parent;
-    self.toRemove = false;
 
+    self.timer = 0;
+    self.toRemove = false;
     let super_update = self.update;
     self.update = function(){
         if(self.timer++ > 100)
@@ -249,27 +237,25 @@ let Bullet = function(param){
 
         for(let i in Player.list){
             let p = Player.list[i];
-            if((self.map === p.map) && (self.getDistance(p) < 32) && (self.parent !== p.id)){
+            if(self.map === p.map && self.getDistance(p) < 32 && self.parent !== p.id){
                 p.hp -= 1;
 
                 if(p.hp <= 0){
                     let shooter = Player.list[self.parent];
-                    if(shooter){
+                    if(shooter)
                         shooter.score += 1;
-                    }
+                        shooter.win = true;
                     p.hp = p.hpMax;
                     p.x = Math.random() * 500;
                     p.y = Math.random() * 500;
-
                 }
-
                 self.toRemove = true;
             }
         }
     };
 
-    self.getInitPackage = function(){
-        return{
+    self.getInitPack = function(){
+        return {
             id:self.id,
             x:self.x,
             y:self.y,
@@ -277,8 +263,8 @@ let Bullet = function(param){
         };
     };
 
-    self.getUpdatePackage = function(){
-        return{
+    self.getUpdatePack = function(){
+        return {
             id:self.id,
             x:self.x,
             y:self.y,
@@ -286,7 +272,7 @@ let Bullet = function(param){
     };
 
     Bullet.list[self.id] = self;
-    initPackage.bullet.push(self.getInitPackage());
+    initPackage.bullet.push(self.getInitPack());
     return self;
 };
 
@@ -294,25 +280,22 @@ Bullet.list = {};
 
 Bullet.update = function(){
     let pack = [];
-
     for(let i in Bullet.list){
         let bullet = Bullet.list[i];
         bullet.update();
         if(bullet.toRemove){
             delete Bullet.list[i];
             removePackage.bullet.push(bullet.id);
-        } else {
-            pack.push(bullet.getUpdatePackage());
-        }
+        } else
+            pack.push(bullet.getUpdatePack());
     }
     return pack;
 };
 
-Bullet.getAllInitPacks = function() {
+Bullet.getAllInitPack = function(){
     let bullets = [];
-    for (let i in Bullet.list) {
-        bullets.push(Bullet.list[i].getInitPackage());
-    }
+    for(let i in Bullet.list)
+        bullets.push(Bullet.list[i].getInitPack());
     return bullets;
 };
 
@@ -349,23 +332,25 @@ io.sockets.on('connection', function(socket){
     });
 });
 
-let initPackage = {player:[], bullet:[]};
-let removePackage = {player:[], bullet:[]};
+let initPackage = {player:[],bullet:[]};
+let removePackage = {player:[],bullet:[]};
+
 
 setInterval(function(){
-    let updatePackage = {
-        player: Player.update(),
-        bullet: Bullet.update(),
+    let pack = {
+        player:Player.update(),
+        bullet:Bullet.update(),
     };
 
     for(let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
-        socket.emit('init', initPackage);
-        socket.emit('update',updatePackage);
-        socket.emit('remove', removePackage);
+        socket.emit('init',initPackage);
+        socket.emit('update',pack);
+        socket.emit('remove',removePackage);
     }
     initPackage.player = [];
     initPackage.bullet = [];
     removePackage.player = [];
     removePackage.bullet = [];
-}, 1000/25);
+
+},1000/25);
