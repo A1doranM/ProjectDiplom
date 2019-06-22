@@ -5,6 +5,8 @@ ctx.font = '30px Arial';
 let Img = {};
 Img.player = new Image();
 Img.player.src = '../assets/player.png';
+Img.winner = new Image();
+Img.winner.src = '../assets/golden_cup.png';
 Img.bullet = new Image();
 Img.bullet.src = '../assets/bullet.png';
 
@@ -15,7 +17,8 @@ Img.map['level_1'] = new Image();
 Img.map['level_1'].src = '../assets/level_backgrounds/map.png';
 
 let socket = io();
-
+let toolTipElem = document.getElementById("game");
+let showingTooltip;
 let WIDTH = 1170;
 let HEIGHT = 750;
 
@@ -30,6 +33,7 @@ let Player = function(initPack){
     self.hpMax = initPack.hpMax;
     self.score = initPack.score;
     self.map = initPack.map;
+    self.win = initPack.win;
 
     self.draw = function(){
         if(Player.list[selfId].map !== self.map)
@@ -44,19 +48,27 @@ let Player = function(initPack){
         let width = Img.player.width*2;
         let height = Img.player.height*2;
 
+        if (self.win === true) {
+            ctx.drawImage(Img.winner,
+                0, 0, Img.winner.width, Img.winner.height,
+                x - width, y - height, width*2, height*2);
+            let showWinner = setTimeout(function () {
+                socket.emit('denyWin', {inputID: 'denyWin', state: false});
+                clearTimeout(showWinner);
+                }, 3000);
+        } else {
+            ctx.drawImage(Img.player,
+                0,0,Img.player.width,Img.player.height,
+                x-width/2,y-height/2,width,height);
+        }
 
-        ctx.drawImage(Img.player,
-            0,0,Img.player.width,Img.player.height,
-            x-width/2,y-height/2,width,height);
-
-        //ctx.fillText(self.score,self.x,self.y-60);
-    }
+    };
 
     Player.list[self.id] = self;
 
 
     return self;
-}
+};
 Player.list = {};
 
 
@@ -76,14 +88,26 @@ let Bullet = function(initPack){
         let x = self.x - Player.list[selfId].x + WIDTH/2;
         let y = self.y - Player.list[selfId].y + HEIGHT/2;
 
+        if (self.win === true) {
+            ctx.drawImage(Img.winner,
+                0, 0, Img.winner.width, Img.winner.height,
+                x - width, y - height, width, height);
+            socket.emit('denyWin', {inputID: 'denyWin', state: false});
+            alert("Winner");
+            showWinner = setTimeout(function () {
+                document.body.removeChild(showingTooltip);
+            }, 3000);
+        }
         ctx.drawImage(Img.bullet,
             0,0,Img.bullet.width,Img.bullet.height,
             x-width/2,y-height/2,width,height);
-    }
+
+
+    };
 
     Bullet.list[self.id] = self;
     return self;
-}
+};
 Bullet.list = {};
 
 let selfId = null;
@@ -114,6 +138,9 @@ socket.on('update',function(data){
                 p.hp = pack.hp;
             if(pack.score !== undefined)
                 p.score = pack.score;
+            if(pack.win !== undefined){
+                p.win = pack.win;
+            }
         }
     }
     for(let i = 0 ; i < data.bullet.length; i++){
@@ -144,11 +171,15 @@ setInterval(function(){
     ctx.clearRect(0,0,750,1170);
     drawMap();
     drawScore();
-    for(let i in Player.list)
+    for(let i in Player.list) {
         Player.list[i].draw();
+    }
     for(let i in Bullet.list)
         Bullet.list[i].draw();
 },40);
+
+
+
 
 let drawMap = function(){
     let player = Player.list[selfId];
@@ -181,9 +212,34 @@ let Hero = function () {
     this.moveDown = function(){
         socket.emit('action', {inputID:'down', state: true});
     };
-    this.shoot = function () {
-        socket.emit('action', {inputID:'attack', state: true});
-    }
+    this.shootL = function (angle) {
+        socket.emit('action', {inputID:'attackL', state: true, angle:angle});
+        let timer = setInterval(function () {
+            socket.emit('action', {inputID:'attackL', state: false});
+            clearInterval(timer);
+        }, 100);
+    };
+    this.shootR = function () {
+        socket.emit('action', {inputID:'attackR', state: true});
+        let timer = setInterval(function () {
+            socket.emit('action', {inputID:'attackR', state: false});
+            clearInterval(timer);
+        }, 100);
+    };
+    this.shootU = function () {
+        socket.emit('action', {inputID:'attackU', state: true});
+        let timer = setInterval(function () {
+            socket.emit('action', {inputID:'attackU', state: false});
+            clearInterval(timer);
+        }, 100);
+    };
+    this.shootD = function () {
+        socket.emit('action', {inputID:'attackD', state: true});
+        let timer = setInterval(function () {
+            socket.emit('action', {inputID:'attackD', state: false});
+            clearInterval(timer);
+        }, 100);
+    };
 };
 
 document.onkeydown = function(event){
@@ -196,7 +252,7 @@ document.onkeydown = function(event){
     else if(event.keyCode === 87) // w
         socket.emit('action',{inputID:'UP',state:true});
     else if(event.keyCode === 66)
-        socket.emit('action', {inputID:'attack', state: true});
+        socket.emit('action', {inputID:'attackD', state: true});
 };
 document.onkeyup = function(event){
     if(event.keyCode === 68)    //d
@@ -208,5 +264,5 @@ document.onkeyup = function(event){
     else if(event.keyCode === 87) // w
         socket.emit('action',{inputID:'UP',state:false});
     else if(event.keyCode === 66)
-        socket.emit('action', {inputID:'attack', state: false});
+        socket.emit('action', {inputID:'attackD', state: false});
 };

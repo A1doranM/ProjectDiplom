@@ -1,11 +1,11 @@
-// let mysql = require('mysql');
-// let DBConnection = mysql.createConnection({
-//     host: 'localhost',
-//     port: '3306',
-//     user: 'root',
-//     password: '1q2w3e3e2w1q4r',
-//     database: 'diplom'
-// });
+let mysql = require('mysql');
+let DBConnection = mysql.createConnection({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '1q2w3e3e2w1q4r',
+    database: 'diplom'
+});
 
 
 let express = require('express');
@@ -169,6 +169,10 @@ Player.onConnect = function(socket){
         id:socket.id,
         map:map,
     });
+    socket.on('denyWin', function (data) {
+        player.win = data.state;
+    });
+
     socket.on('action', function (data) {
         switch (data.inputID) {
             case 'left':
@@ -183,13 +187,50 @@ Player.onConnect = function(socket){
             case 'down':
                 player.pressingDown = data.state;
                 break;
-            case 'attack':
-                switch (data.direction){
-                    case "L":
-                        player.pressingAttack = data.state;
-                        player.bulletAngle = 180;
-                        break;
+            case 'attackL':
+                player.pressingAttack = data.state;
+                if(data.angle !== undefined) {
+                    player.bulletAngle = 180 + data.angle;
+                } else {
+                    player.bulletAngle = 180
                 }
+                break;
+            case 'attackR':
+                player.pressingAttack = data.state;
+                if(data.angle !== undefined) {
+                    player.bulletAngle = 0 + data.angle;
+                } else {
+                    player.bulletAngle = 0
+                }
+                break;
+            case 'attackU':
+                player.pressingAttack = data.state;
+                if(data.angle !== undefined) {
+                    player.bulletAngle = 270 + data.angle;
+                } else {
+                    player.bulletAngle = 270
+                }
+                break;
+            case 'attackD':
+                player.pressingAttack = data.state;
+                if(data.angle !== undefined) {
+                    player.bulletAngle = 90 + data.angle;
+                } else {
+                    player.bulletAngle = 90
+                }
+                break;
+            // case 'attackR':
+            //     player.pressingAttack = data.state;
+            //     player.bulletAngle = 0;
+            //     break;
+            // case 'attackU':
+            //     player.pressingAttack = data.state;
+            //     player.bulletAngle = 90;
+            //     break;
+            // case 'attackD':
+            //     player.pressingAttack = data.state;
+            //     player.bulletAngle = 270;
+            //     break;
         }
     });
 
@@ -309,21 +350,21 @@ io.sockets.on('connection', function(socket){
     SOCKET_LIST[socket.id] = socket;
 
     socket.on('signIn',function(data){
-        // DBConnection.query('select users.login from diplom.users where users.password=? and users.email=?', [data.password, data.email], function (err, result) {
-        //     if(result[0] === undefined) {
-        //         socket.emit('SignInResponse', {success: false});
-        //     } else {
-        //         socket.emit('SignInResponse', {success: true});
-        //     }
-        // });
+        DBConnection.query('select users.login from diplom.users where users.password=? and users.email=?', [data.password, data.email], function (err, result) {
+            if(result[0] === undefined) {
+                socket.emit('SignInResponse', {success: false});
+            } else {
+                socket.emit('SignInResponse', {success: true});
+            }
+        });
         socket.emit('SignInResponse', {success: true});
     });
 
     socket.on('signUp',function(data){
-        // DBConnection.query('insert into diplom.users (login, email, password) values (?, ?, ?)', [data.login, data.email, data.password], function (err, result) {
-        //     if(err) throw err;
-        //     socket.emit('SignUnResponse', {success: true});
-        // });
+        DBConnection.query('insert into diplom.users (login, email, password) values (?, ?, ?)', [data.login, data.email, data.password], function (err, result) {
+            if(err) throw err;
+            socket.emit('SignUnResponse', {success: true});
+        });
         socket.emit('SignUpResponse', {success: true});
     });
 
