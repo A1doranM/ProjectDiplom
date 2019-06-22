@@ -184,8 +184,12 @@ Player.onConnect = function(socket){
                 player.pressingDown = data.state;
                 break;
             case 'attack':
-                player.pressingAttack = data.state;
-                break;
+                switch (data.direction){
+                    case "L":
+                        player.pressingAttack = data.state;
+                        player.bulletAngle = 180;
+                        break;
+                }
         }
     });
 

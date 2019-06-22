@@ -189,9 +189,18 @@ let Hero = function () {
     this.moveDown = function(){
         socket.emit('action', {inputID:'down', state: true});
     };
-    this.shoot = function () {
-        socket.emit('action', {inputID:'attack', state: true});
-    }
+    this.shootL = function () {
+        socket.emit('action', {inputID:'attack', state: true, direction:'L'});
+    };
+    this.shootR = function () {
+        socket.emit('action', {inputID:'attack', state: true, direction:'R'});
+    };
+    this.shootU = function () {
+        socket.emit('action', {inputID:'attack', state: true, direction:'U'});
+    };
+    this.shootD = function () {
+        socket.emit('action', {inputID:'attack', state: true, direction:'D'});
+    };
 };
 
 document.onkeydown = function(event){
