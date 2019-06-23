@@ -34,22 +34,31 @@ let jumpObjects = [];
 let crystals = [];
 let doors = [];
 let tooltipText = [];
-tooltipText[0] = '  «Вітаємо тебе в дивовижному світі тролів в якому ти зможеш відкрити для себе щось нове і не відоме.' +
+tooltipText[0] = '  Вітаємо тебе в дивовижному світі тролів в якому ти зможеш відкрити для себе щось нове і не відоме.' +
                     'Тобі доведеться спочатку прочитати теорію, щоб зрозуміти що робити.»';
 
-tooltipText[1] = '  «JavaScript спочатку створювався для того, щоб зробити web-сторінки «живими». Програми на цій мові називаються скриптами. ' +
+tooltipText[1] = '  JavaScript спочатку створювався для того, щоб зробити web-сторінки «живими». Програми на цій мові називаються скриптами. ' +
                         'У браузері вони підключаються безпосередньо до HTML і, як тільки завантажується сторінка - тут же виконуються. ' +
                         'Компіляція - це коли вихідний код програми, за допомогою спеціального інструменту, іншої програми, яка називається «компілятор», ' +
                         'перетворюється в іншу мову, як правило - в машинний код. Цей машинний код потім поширюється і запускається. ' +
                         'При цьому вихідний код програми залишається у розробника.»';
 
-tooltipText[2] = "  «Тег script містить виконуваний код. Попередні стандарти HTML вимагали обовязкового зазначення атрибута type, але зараз він вже не потрібен. Досить просто '<'script'>'" +
+tooltipText[2] = "  Тег script містить виконуваний код. Попередні стандарти HTML вимагали обовязкового зазначення атрибута type, але зараз він вже не потрібен. Досить просто '<'script'>'" +
                         "Браузер, коли бачить '<'script'>':" +
                         "1. Починає відображати сторінку, показує частину документа до script" +
                         "2. Зустрівши тег script, перемикається в JavaScript-режим і не показує, а виконує його вміст.";
 
+tooltipText[3] = "  Вітаю, ти виконав завдання. А тепер трохи складніше. \n" +
+                "Спробуй управляти персонажем. Для цього треба зрозуміти що таке функція та її параметри.\n" +
+                "Наприклад: player.moveRight(10)\n" +
+                "В даному випадку player це клас твого персонажа. Він містить в собі здібності твого троля. Тобто там зберігаються функції переміщення вліво, вправо, вверх, донизу, стрибок та собрати кристал.\n" +
+                "А moveRight(10) це функція яка переміщує твого персонажа вправо на 10 кроків.\n" +
+                "Напиши цей код в консоль та подивись що вийде.\n";
 let score = document.getElementById("crystalCounter");
 let showingTooltip = 0;
+let firstTaskDone = false;
+let secondTaskDone = false;
+let thirdTaskDone= false;
 
 
 //Выполняет команды из консоли
@@ -648,17 +657,26 @@ let drawScore = function () {
 
 
 let showTooltip = function (text) {
-    alert(text);
     let tooltip = document.getElementById('tooltipText');
     tooltip.value = text;
     // document.getElementById('tooltip').style.display = 'none';
 };
 
+
 let Showed = 0;
 document.getElementById('btn_tooltip_n').onclick = function (e) {
     Showed++;
-    showTooltip(tooltipText[Showed]);
-};
+    if(Showed <= 3){
+        showTooltip(tooltipText[Showed]);
+    } else if(firstTaskDone){
+        showingTooltip(tooltipText[Showed]);
+        firstTaskDone = false;
+    } else if(secondTaskDone){
+        showingTooltip(tooltipText[Showed]);
+        secondTaskDone = false;
+    } else if(thirdTaskDone){
+        showingTooltip(tooltipText[Showed]);
+    }};
 
 document.onkeydown = function(event){
     if(event.keyCode === 68)    //d
