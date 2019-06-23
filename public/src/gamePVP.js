@@ -21,6 +21,9 @@ let toolTipElem = document.getElementById("game");
 let showingTooltip;
 let WIDTH = 1170;
 let HEIGHT = 750;
+let DKill = false;
+let TKill = false;
+let UKill = false;
 
 //initial package
 let Player = function(initPack){
@@ -178,9 +181,6 @@ setInterval(function(){
         Bullet.list[i].draw();
 },40);
 
-
-
-
 let drawMap = function(){
     let player = Player.list[selfId];
     let x = WIDTH/2 - player.x;
@@ -189,14 +189,52 @@ let drawMap = function(){
 };
 
 let drawScore = function(){
-    ctx.fillStyle = 'white';
-    ctx.fillText(Player.list[selfId].score,0,30);
+    ctx.fillStyle = 'White';
+    ctx.fillText("Kills:",15,60);
+    drawKills();
+    ctx.fillText(Player.list[selfId].score,85,60);
 };
 
+let drawKills = function () {
+    if(Player.list[selfId].score === 2 && !DKill){
+        ctx.fillStyle = 'red';
+        ctx.font = '100px Arial';
+        ctx.fillText("Double kill", 300, 200);
+        let showWinner = setTimeout(function () {
+            DKill = true;
+            ctx.font = '30px Arial';
+            clearTimeout(showWinner);
+        }, 3000);
+    }
+    if(Player.list[selfId].score === 3 && !DKill){
+        ctx.fillStyle = 'red';
+        ctx.font = '100px Arial';
+        ctx.fillText("Double kill", 300, 200);
+        let showWinner = setTimeout(function () {
+            DKill = true;
+            ctx.font = '30px Arial';
+            clearTimeout(showWinner);
+        }, 3000);
+    }
+    if(Player.list[selfId].score >= 4 && !DKill){
+        ctx.fillStyle = 'red';
+        ctx.font = '100px Arial';
+        ctx.fillText("Double kill", 300, 200);
+        let showWinner = setTimeout(function () {
+            DKill = true;
+            ctx.font = '30px Arial';
+            clearTimeout(showWinner);
+        }, 3000);
+    }
+};
 
 function Run () {
     let script = document.getElementById("code").value;
     eval(script);
+}
+
+function saveStat() {
+    socket.emit('saveStatsPVP', {state: player.score});
 }
 
 let Hero = function () {

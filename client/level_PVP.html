@@ -7,21 +7,36 @@
     <script src="socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
-<div id="main-screen">
-    <div id="canvas-wrapper">
-        <canvas id="game" width="1170" height="750">
+<div id="grid">
 
-        </canvas>
-    </div>
+    <div class="grid">
+        <div>
+            <div id="exitArena" class="controls" onclick="saveStat()">Exit arena</div>
+        </div>
+        <div>
+            <div id="canvas-wrapper">
+                <!--<canvas id="game" width="970" height="575">-->
+                <canvas id="game" width="1170" height="582"></canvas>
+            </div>
+        </div>
 
-    <div id="code-area">
-        <textarea id="code"></textarea>
-        <div id="btn-execute" class="controls" onclick="Run()">EXECUTE</div>
-    </div>
+        <div>
+            <div id="code-area">
+                <textarea id="code"></textarea>
+            </div>
+        </div>
 
-    <div id="tips">
-        <div id="label_tips_task" onclick="Run()">TASK AND TIPS</div>
+        <div>
+            <div id="tips">
+                <div id="label_tips_task" onclick="Run()">TASK AND TIPS</div>
+            </div>
+        </div>
+
+        <div>
+            <div id="btn-execute" class="controls" onclick="Run()">EXECUTE</div>
+        </div>
     </div>
+</div>
 </div>
 
 </body>

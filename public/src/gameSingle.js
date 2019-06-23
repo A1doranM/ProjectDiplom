@@ -1,4 +1,5 @@
 let ctx = document.getElementById("game").getContext("2d");
+let canvas = document.getElementById("canvas-wrapper");
 ctx.font = '30px Arial';
 
 //game
@@ -24,7 +25,7 @@ Img.map.src = '../assets/level_backgrounds/Level_1.png';
 let socket = io();
 
 let TILE_SIZE = 30;
-let WIDTH = 1000;
+let WIDTH = 1250;
 let HEIGHT = 750;
 
 let player;
@@ -32,15 +33,23 @@ let gameObjects = [];
 let jumpObjects = [];
 let crystals = [];
 let doors = [];
-let tooltipText = '<p>Приветствуем тебя друг в удивительном мире троллей в котором ты сможешь открыть для себя что-то новое и не известное. </p>' +
-    '           <p>Тема этого уровня переменные. И так в языке JavaScript есть переменные следующих типов. <strong>1 - Целочисленные, 2 - Числа с плавающей запятой, 3 - Строки</strong> </p>' +
-    '           <p>Переменные используются для храниния данных которые ты используешь во время работы программы, после ее остановки данные из переменных теряются </p>' +
-    '           <p>В JavaScript можно объявлять переменные для хранения данных. Это делается при помощи <strong>let</strong>, или в более новом стандарте при помощи <strong>let</strong></p>' +
-    '           <p>Технически, можно просто записать значение и без объявления переменной, однако по ряду причин это не рекомендуется.</p>' +
-    '           <p>Вместе с объявлением можно сразу присвоить значение. Например: <strong>let a = 10; | let s = 10.5; | let f = "Hello";</strong> этот пример иллюстрирует 3 типа переменных </p>' +
-    '           <p>В отличии от таких языков как Java и C++ тебе не недо конкретно указывать тип переменной, интерпритатор сделает это за тебя сам </p>';
-let toolTipElem = document.getElementById("game");
-let showingTooltip;
+let tooltipText = [];
+tooltipText[0] = '«Вітаємо тебе в дивовижному світі тролів в якому ти зможеш відкрити для себе щось нове і не відоме.' +
+                    'Тобі доведеться спочатку прочитати теорію, щоб зрозуміти що робити.»';
+
+tooltipText[1] = '<p>«JavaScript спочатку створювався для того, щоб зробити web-сторінки «живими». Програми на цій мові називаються скриптами. ' +
+                        'У браузері вони підключаються безпосередньо до HTML і, як тільки завантажується сторінка - тут же виконуються. ' +
+                        'Компіляція - це коли вихідний код програми, за допомогою спеціального інструменту, іншої програми, яка називається «компілятор», ' +
+                        'перетворюється в іншу мову, як правило - в машинний код. Цей машинний код потім поширюється і запускається. ' +
+                        'При цьому вихідний код програми залишається у розробника.»</p>';
+
+tooltipText[2] = "<p>«Тег script містить виконуваний код. Попередні стандарти HTML вимагали обовязкового зазначення атрибута type, але зараз він вже не потрібен. Досить просто '<'script'>'" +
+                        "Браузер, коли бачить '<'script'>':" +
+                        "1. Починає відображати сторінку, показує частину документа до script" +
+                        "2. Зустрівши тег script, перемикається в JavaScript-режим і не показує, а виконує його вміст.</p>";
+
+let score = document.getElementById("crystalCounter");
+let showingTooltip = 0;
 
 
 //Выполняет команды из консоли
@@ -170,7 +179,7 @@ let Entity = function(x,y,spdX,spdY,width,height,img){
 };
 
 let Player = function(){
-    let self = Entity(750,1050,30,5,50,70,Img.player,10,1);
+    let self = Entity(750,1000,30,5,50,70,Img.player,10,1);
     self.number = "" + Math.floor(10 * Math.random());
     self.bulletAngle = 0;
     self.maxSpd = 5 ;
@@ -244,117 +253,117 @@ let Player = function(){
         return true;
     };
 
-    self.moveLeft = function(a){
-        self.x -= self.maxSpd;
-    };
-    self.moveRight = function(a){
-        self.x += self.maxSpd;
-    };
-    self.moveUP = function(a){
-        self.y -= self.maxSpd;
-    };
-    self.moveDown = function(a){
-        self.y += self.maxSpd;
-    };
-    // self.moveLeft = function(steps_custom) {
-    //     updateBumpers();
-    //     let steps;
-    //
-    //     if(steps_custom !== 0){
-    //         steps = steps_custom;
-    //     } else {
-    //         steps = 1;
-    //     }
-    //
-    //
-    //     let timer = setInterval(function () {
-    //         steps--;
-    //         if(insideObjectHorizontal()) {
-    //             self.x -= self.maxSpd;
-    //             if (steps <= 0) {
-    //                 clearInterval(timer);
-    //             }
-    //         }
-    //         if (steps <= 0) {
-    //             clearInterval(timer);
-    //         }
-    //     }, 40);
-    //
+    // self.moveLeft = function(a){
+    //     self.x -= self.maxSpd;
     // };
-    //
-    // self.moveRight = function(steps_custom){
-    //     updateBumpers();
-    //     let steps;
-    //     if(steps_custom !== 0){
-    //         steps = steps_custom;
-    //     } else {
-    //         steps = 1;
-    //     }
-    //
-    //     let timer = setInterval(function () {
-    //         steps--;
-    //         if(insideObjectHorizontal()) {
-    //             self.x += self.maxSpd;
-    //             if (steps <= 0) {
-    //                 clearInterval(timer);
-    //             }
-    //         }
-    //             if (steps <= 0) {
-    //                 clearInterval(timer);
-    //             }
-    //         }, 40);
+    // self.moveRight = function(a){
+    //     self.x += self.maxSpd;
     // };
-    //
-    // self.moveUP = function(steps_custom){
-    //     updateBumpers();
-    //     let oldY = self.y;
-    //     let steps;
-    //     if(steps_custom !== 0){
-    //         steps = steps_custom;
-    //     } else {
-    //         steps = 1;
-    //     }
-    //     let timer = setInterval(function () {
-    //         steps --;
-    //         let object = insideObject();
-    //         if(object !== false) {
-    //             if(self.y === object.upBumper+10){
-    //                 clearInterval(timer);
-    //             }
-    //             self.y -= self.maxSpd;
-    //         } else {
-    //             clearInterval(timer);
-    //             self.y = oldY;
-    //         }
-    //         if(steps <= 0){clearInterval(timer);}
-    //     }, 40);
+    // self.moveUP = function(a){
+    //     self.y -= self.maxSpd;
     // };
-    //
-    // self.moveDown = function(steps_custom){
-    //     updateBumpers();
-    //     let oldY = self.y;
-    //     let steps;
-    //     if(steps_custom !== 0){
-    //         steps = steps_custom;
-    //     } else {
-    //         steps = 1;
-    //     }
-    //
-    //     let timer = setInterval(function () {
-    //         steps --;
-    //         let object = insideObject();
-    //         if(object !== false) {
-    //             if(self.y === object.downBumper+10){
-    //                 clearInterval(timer);
-    //             }
-    //             self.y += self.maxSpd;
-    //         } else {
-    //             clearInterval(timer);
-    //             self.y = oldY;
-    //         }
-    //         if(steps <= 0){clearInterval(timer);}
-    //     }, 40);
+    // self.moveDown = function(a){
+    //     self.y += self.maxSpd;
     // };
+    self.moveLeft = function(steps_custom) {
+        updateBumpers();
+        let steps;
+
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = 1;
+        }
+
+
+        let timer = setInterval(function () {
+            steps--;
+            if(insideObjectHorizontal()) {
+                self.x -= self.maxSpd;
+                if (steps <= 0) {
+                    clearInterval(timer);
+                }
+            }
+            if (steps <= 0) {
+                clearInterval(timer);
+            }
+        }, 40);
+
+    };
+
+    self.moveRight = function(steps_custom){
+        updateBumpers();
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = 1;
+        }
+
+        let timer = setInterval(function () {
+            steps--;
+            if(insideObjectHorizontal()) {
+                self.x += self.maxSpd;
+                if (steps <= 0) {
+                    clearInterval(timer);
+                }
+            }
+                if (steps <= 0) {
+                    clearInterval(timer);
+                }
+            }, 40);
+    };
+
+    self.moveUP = function(steps_custom){
+        updateBumpers();
+        let oldY = self.y;
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = 1;
+        }
+        let timer = setInterval(function () {
+            steps --;
+            let object = insideObject();
+            if(object !== false) {
+                if(self.y === object.upBumper+10){
+                    clearInterval(timer);
+                }
+                self.y -= self.maxSpd;
+            } else {
+                clearInterval(timer);
+                self.y = oldY;
+            }
+            if(steps <= 0){clearInterval(timer);}
+        }, 40);
+    };
+
+    self.moveDown = function(steps_custom){
+        updateBumpers();
+        let oldY = self.y;
+        let steps;
+        if(steps_custom !== 0){
+            steps = steps_custom;
+        } else {
+            steps = 1;
+        }
+
+        let timer = setInterval(function () {
+            steps --;
+            let object = insideObject();
+            if(object !== false) {
+                if(self.y === object.downBumper+10){
+                    clearInterval(timer);
+                }
+                self.y += self.maxSpd;
+            } else {
+                clearInterval(timer);
+                self.y = oldY;
+            }
+            if(steps <= 0){clearInterval(timer);}
+        }, 40);
+    };
 
     self.jumpUP = function(jump_height){
       if(jump_height <= 50){
@@ -608,6 +617,9 @@ for(let i = 0 ; i < 25; i++){
 Maps.current = Maps('level_1', Img.map.src, arrayCollision2D);
 
 setTimeout(function screenUpdate() {
+    // let positionInfo = canvas.getBoundingClientRect();
+    // WIDTH = positionInfo.width;
+    // HEIGHT = positionInfo.height;
     ctx.clearRect(0,0,WIDTH,HEIGHT);
     Maps.current.draw();
     // for(let i=0; i < gameObjects.length; i++){
@@ -631,24 +643,16 @@ let lastScore = null;
 let drawScore = function () {
     if(lastScore === Player.score)
         return;
-    ctx.fillStyle = 'black';
-    ctx.fillText(player.score, 30, 720);
-    ctx.drawImage(Img.crystal['score'], 50, 690, Img.crystal['score'].width, Img.crystal['score'].height);
+    score.innerText = player.score;
 };
 
-let isShowed = 1;
-let firstTooltip = setTimeout(function show() {
-    if(isShowed !== 0) {
-        showingTooltip = showTooltip(tooltipText, toolTipElem);
-        isShowed = 0;
-        console.log('showing tooltip');
-    } else {
-        clearTimeout(firstTooltip);
-    }
-    firstTooltip = setTimeout(function () {
-        document.body.removeChild(showingTooltip);
-    }, 5000);
-}, 30);
+let Showed = 0;
+showTooltip(tooltipText[Showed]);
+
+document.getElementById('btn_tooltip_n').onclick = function (e) {
+    Showed+=1;
+    showTooltip(tooltipText[Showed]);
+};
 
 document.onkeydown = function(event){
     if(event.keyCode === 68)    //d
@@ -662,7 +666,5 @@ document.onkeydown = function(event){
 };
 
 document.getElementById('game').onclick = function(e) {
-    //let take = player.jump(20, 10, 'left');
-    //let take = player.jump(20, 10, 'right');
     console.log("player: ", player.x, player.y);
 };

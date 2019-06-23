@@ -3,30 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/stylesheets/level_1.css">
+    <link rel="stylesheet" href="/stylesheets/level_1_test.css">
     <script src="socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
-<div id="main-screen">
-    <div id="canvas-wrapper">
-        <canvas id="game" width="1170" height="750">
+<div id="grid">
+    <div class="grid">
 
-        </canvas>
-    </div>
+        <div>
 
-    <div id="code-area">
-        <textarea id="code"></textarea>
-        <div id="btn-execute" class="controls" onclick="Run()">EXECUTE</div>
-    </div>
+            <div id="grid_top_menu">
+                <div class="grid_top_menu">
 
-    <div id="tips">
-        <div id="label_tips_task" onclick="Run()">TASK AND TIPS</div>
+                    <div id="crystalLabel"></div>
+
+                    <div><h1 id="crystalCounter"></h1></div>
+
+                    <div id="timer_icon"></div>
+
+                    <div>
+                        <form id="timerForm" name=MyForm>
+                            <input id="timerInput" name=stopwatch size=10 value="00:00:00">
+                        </form>
+                    </div>
+                    <div></div>
+                    <div id="tools_top_menu"> </div>
+
+                </div>
+            </div>
+
+        </div>
+
+            <div id="canvas-wrapper">
+                <canvas id="game" width="1300" height="750"></canvas>
+            </div>
+
+            <div id="code-area">
+                <textarea id="code"></textarea>
+            </div>
+
+            <div id="tips">
+                <div id="label_tips_task" onclick="Run()">TASK AND TIPS</div>
+            </div>
+
+        <div>
+            <div id="btn-execute" class="controls" onclick="Run()">EXECUTE</div>
+        </div>
     </div>
 </div>
-
+<div class="tooltip">
+    <div id="btn_tooltip_n" class="tooltip btnTooltip controls">NEXT</div>
+    <div id="btn_tooltip_p" class="tooltip btnTooltip controls">BACK</div>
+</div>
+<script language="JavaScript" type="text/javascript">
+    window.onload = () => {
+        StartStop();
+    }
+</script>
 </body>
+<script src="/src/maps.js"></script>
+<script src="/src/gameSingle.js"></script>
 <script src="/src/maps.js"></script>
 <script src="/src/tooltips.js"></script>
 <script src="/src/CompilePlayerCode.js"></script>
-<script src="/src/gameSingle.js"></script>
+<script src="/src/timer.js"></script>
 </html>

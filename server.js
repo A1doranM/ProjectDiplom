@@ -40,14 +40,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/External Libraries'));
 
-serv.listen(4000);
+serv.listen(2000);
 
 let SOCKET_LIST = {};
 
 let Entity = function(param){
     let self = {
-        x:750,
-        y:500,
+        x:1750,
+        y:1500,
         spdX:0,
         spdY:0,
         id:"",
@@ -169,8 +169,13 @@ Player.onConnect = function(socket){
         id:socket.id,
         map:map,
     });
+
     socket.on('denyWin', function (data) {
         player.win = data.state;
+    });
+
+    socket.on('saveStatsPVP', function (data) {
+        player.score = data.state;
     });
 
     socket.on('action', function (data) {
