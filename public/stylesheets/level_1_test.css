@@ -185,6 +185,11 @@ body{
 /*           Tooltips              */
 /*=================================*/
 
+#tooltipText{
+    height: 530px;
+    overflow: hidden;
+}
+
 .tooltip {
     position: fixed;
     display: inline-block;
@@ -199,7 +204,7 @@ body{
 
     border: 1px solid #b3c9ce;
     border-radius: 4px;
-    text-align: center;
+    text-align: justify;
     font: italic 16px/1.3 sans-serif;
     color: #333;
     background: #fff;
