@@ -94,6 +94,27 @@ body{
     background-repeat: no-repeat;
 }
 
+#tipsTextarea{
+    margin-top: 3%;
+    margin-left: 2%;
+    width: 80%;
+    height: 70%;
+}
+
+#label_tips_task{
+    display: block;
+    margin-top: 1.8%;
+    margin-left: 79.6%;
+    width: 18.3%;
+    height: 67%;
+    text-decoration: none;
+    font: 30px "Arial";
+    line-height: 120px;
+    text-align: center;
+    border: 4px solid #989695;
+    background: #d3ecef;
+}
+
 #canvas-wrapper{
     display: block;
     position: relative;
@@ -147,19 +168,6 @@ body{
     text-align: center;
 }
 
-#label_tips_task{
-    display: block;
-    margin-top: 1.8%;
-    margin-left: 79.6%;
-    width: 18.3%;
-    height: 67%;
-    text-decoration: none;
-    font: 30px "Arial";
-    line-height: 120px;
-    text-align: center;
-    border: 4px solid #989695;
-    background: #d3ecef;
-}
 
 .controls,
 .controls:hover {

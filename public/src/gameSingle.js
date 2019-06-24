@@ -46,15 +46,39 @@ tooltipText[1] = '  JavaScript спочатку створювався для т
 tooltipText[2] = "  Тег script містить виконуваний код. Попередні стандарти HTML вимагали обовязкового зазначення атрибута type, але зараз він вже не потрібен. Досить просто '<'script'>'" +
                         "Браузер, коли бачить '<'script'>':" +
                         "1. Починає відображати сторінку, показує частину документа до script" +
-                        "2. Зустрівши тег script, перемикається в JavaScript-режим і не показує, а виконує його вміст.";
+                        "2. Зустрівши тег script, перемикається в JavaScript-режим і не показує, а виконує його вміст." +
+                        "3. Після завершення виконання, повертається назад в HTML-режим і тільки тоді відображає частину документа.\n" +
+                        "Спробуйте цей приклад в дії, і ви самі все побачите.»\n";
 
 tooltipText[3] = "  Вітаю, ти виконав завдання. А тепер трохи складніше. \n" +
                 "Спробуй управляти персонажем. Для цього треба зрозуміти що таке функція та її параметри.\n" +
-                "Наприклад: player.moveRight(10)\n" +
-                "В даному випадку player це клас твого персонажа. Він містить в собі здібності твого троля. Тобто там зберігаються функції переміщення вліво, вправо, вверх, донизу, стрибок та собрати кристал.\n" +
-                "А moveRight(10) це функція яка переміщує твого персонажа вправо на 10 кроків.\n" +
-                "Напиши цей код в консоль та подивись що вийде.\n";
+                "Наприклад: player.moveRight(10). В даному випадку player це клас твого персонажа. Він містить в собі здібності твого троля. Тобто там зберігаються функції переміщення вліво, вправо, вверх, донизу, стрибок та собрати кристал.\n" +
+                "А moveRight(10) це функція яка переміщує твого персонажа вправо на 10 кроків. Напиши цей код в консоль та подивись що вийде.\n";
+
+tooltipText[4] = 'Вітаю, ти виконав завдання. А тепер трохи складніше.Спробуй управляти персонажем. Для цього треба зрозуміти що таке функція та її параметри. Наприклад: player.moveRight(10) В даному випадку player це клас твого персонажа. Він містить в собі здібності твого троля. Тобто там зберігаються функції переміщення вліво, вправо, вверх, донизу, стрибок та собрати кристал. А moveRight(10) це функція яка переміщує твого персонажа вправо на 10 кроків. Напиши цей код в консоль та подивись що вийде.';
+tooltipText[5] = 'Тепер тобі потрібно добратися до кристалу за допомогою команд:\n' +
+    '−\tplayer.moveRight()\n' +
+    '−\tplayer.moveLeft()\n' +
+    '−\tplayer.moveUp()\n' +
+    '−\tplayer.moveDown()\n' +
+    'Щойно ти доберешься до кристалу, напишу команду player.takeCristal()\n' +
+    ' та кристал збереться.\n';
+tooltipText[6] = 'Вітаю! Ти знайшов кристал. Тепер тобі потрібно зібрати усі кристали рівня, щоб мати змогу відгадати секретний шифр двері та покинити рівень.';
+tooltipText[7] = 'Вітаю. Ти зібрав усі кристали. Тепер напиши функцію відкриття двері. player.openDoor()';
+tooltipText[8] = 'Ха-ха. Думав так легко піти? Тепер тобі треба вирішити маленьку задачу на програмування щоб двері відкрились.\n' +
+    'Є методи і у чисел, наприклад num.toFixed (n). Він округлює число num до n знаків після коми, при необхідності добиває нулями до даної довжини і повертає у вигляді рядка (зручно для форматованого виведення). Напиши код щоб округлити числа.\n';
+tooltipText[9] = 'Добре я тобі допомогу. Тобі треба написати:\n' +
+    'var n=12.345;\n' +
+    'alert( n.toFixed(2));\n' +
+    'alert( n.toFixed(0));\n' +
+    'alert( n.toFixed(5));\n';
+tooltipText[10] = 'Добре ти знайшов секретний код:\n' +
+    '1.\t12.35\n' +
+    '2.\t12\n' +
+    '3.\t12.34500\n' +
+    'Вітаю! До зустрічі на наступному рівні\n';
 let score = document.getElementById("crystalCounter");
+let Showed = 0;
 let showingTooltip = 0;
 let firstTaskDone = false;
 let secondTaskDone = false;
@@ -62,10 +86,10 @@ let thirdTaskDone= false;
 
 
 //Выполняет команды из консоли
-function Run () {
-    let script = document.getElementById("code").value;
-    eval(script);
-}
+// function Run () {
+//     let script = document.getElementById("code").value;
+//     eval(script);
+// }
 
 //не используется
 testCollisionRectRect = function(rect1,rect2){
@@ -655,28 +679,86 @@ let drawScore = function () {
     score.innerText = player.score;
 };
 
+let runFirstTask = function(){
+    hideTooltip();
+    let text = "<script> alert('Hello. You are a new Troll') </script>";
+    document.getElementById('tipsTextarea').value = 'Виконай цей код\n' + text;
+    document.getElementById('btn-execute').onclick = function(e){
+        let script = document.getElementById("code").value;
+        if (script === text){
+            alert('Hello. You are a new Troll');
+            document.getElementById('btn-execute').onclick = "";
+            firstTaskDone = true;
+            Showed++;
+            showTooltip(tooltipText[3]);
+        }
+    }
+};
+
+let runSecondTask = function(){
+    hideTooltip();
+    let text =
+        "player.moveRight(10);";
+    document.getElementById('tipsTextarea').value = 'Виконай цей код\n' + text;
+    document.getElementById('btn-execute').onclick = function(e){
+        let script = document.getElementById("code").value;
+        if (script === text){
+            alert('Система опрацювала написаний код користувачем. Персонаж пройшов вправо 10 кроків.');
+            player.moveRight(10);
+            document.getElementById('btn-execute').onclick = Run;
+            secondTaskDone = true;
+            showTooltip(tooltipText[4]);
+        }
+    }
+};
+
+let runThirdTask = function(){
+    // let text =
+    //     "player.moveRight(10);";
+    // document.getElementById('tipsTextarea').value = 'Виконай цей код\n' + text;
+    // document.getElementById('btn-execute').onclick = function(e){
+    //     let script = document.getElementById("code").value;
+    //     if (script === text){
+    //         alert('Система опрацювала написаний код користувачем. Персонаж пройшов вправо 10 кроків.');
+    //         player.moveRight(10);
+    //         document.getElementById('btn-execute').onclick = Run;
+    //         secondTaskDone = true;
+    //         showTooltip(tooltipText[3]);
+    //     }
+    // }
+};
 
 let showTooltip = function (text) {
+    document.getElementById('tooltip').style.display = 'inline-block';
     let tooltip = document.getElementById('tooltipText');
     tooltip.value = text;
-    // document.getElementById('tooltip').style.display = 'none';
+};
+
+let hideTooltip = function(){
+    document.getElementById('tooltip').style.display = 'none';
+};
+
+document.getElementById('btn_tooltip_p').onclick = function (e) {
+    Showed--;
+    if (Showed <= 0) {
+        hideTooltip();
+    } else {
+        showTooltip(tooltipText[Showed]);
+    }
 };
 
 
-let Showed = 0;
 document.getElementById('btn_tooltip_n').onclick = function (e) {
-    Showed++;
-    if(Showed <= 3){
+    if (Showed === 3){
+        runSecondTask();
+    } else if(Showed === 2){
+        hideTooltip();
+        runFirstTask();
+    } else {
         showTooltip(tooltipText[Showed]);
-    } else if(firstTaskDone){
-        showingTooltip(tooltipText[Showed]);
-        firstTaskDone = false;
-    } else if(secondTaskDone){
-        showingTooltip(tooltipText[Showed]);
-        secondTaskDone = false;
-    } else if(thirdTaskDone){
-        showingTooltip(tooltipText[Showed]);
-    }};
+        Showed++;
+    }
+};
 
 document.onkeydown = function(event){
     if(event.keyCode === 68)    //d

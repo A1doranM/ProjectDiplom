@@ -224,21 +224,8 @@ Player.onConnect = function(socket){
                     player.bulletAngle = 90
                 }
                 break;
-            // case 'attackR':
-            //     player.pressingAttack = data.state;
-            //     player.bulletAngle = 0;
-            //     break;
-            // case 'attackU':
-            //     player.pressingAttack = data.state;
-            //     player.bulletAngle = 90;
-            //     break;
-            // case 'attackD':
-            //     player.pressingAttack = data.state;
-            //     player.bulletAngle = 270;
-            //     break;
         }
     });
-
 
     socket.emit('init',{
         selfId:socket.id,
